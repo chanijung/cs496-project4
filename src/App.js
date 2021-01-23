@@ -1,6 +1,6 @@
 // eslint-disable
-import React from 'react'
-import {useState} from 'react'
+import React, {useState} from 'react';
+import Navigation from './components/nav';
 import './App.css';
 
 class App extends React.Component {
@@ -23,9 +23,10 @@ class App extends React.Component {
         const {username} = this.state;
         return (
             <div className="App">
-                <header className="App-header">
+                {/* <header className="App-header">
                     {username ? `Hello ${username}` : 'Hello World'}
-                </header>
+                </header> */}
+                <Navigation />
             </div>
         );
         ;

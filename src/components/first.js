@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {Component, useState} from 'react';
+import './first.css';
 
-function First() {
-
-  return (
-    <div className="First">
-      첫번째
-    </div>
-  );
+class First extends Component{
+    render(){
+        return(
+            <div className="First">
+                React
+            </div>
+        );
+    }
 }
 
 export default First;

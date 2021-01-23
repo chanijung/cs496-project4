@@ -1,8 +1,27 @@
 var express = require('express');
-var userRouter = express.Router();
+var router = express.Router();
+const User = require('../models/user');
 
-userRouter.get('/', (req, res) => res.json({username:'bryan~'}));
-userRouter.get('/group', (req, res) => res.json({username:'dev group bryan'}))
+router.get('/', (req, res) => res.json({username:'bryan~'}));
+router.get('/group', (req, res) => res.json({username:'dev group bryan'}))
+router.post('/join', function(req,res){
+    const user = new User();
+    user.uid = req.body.uid;
+    user.pwd = req.body.pwd;
+    user.name = req.body.name;
+    user.semester = req.body.semester;
+    user.class = req.body.class;
 
-module.exports = userRouter;
+    user.save(function(err){
+        if (err){
+            console.error(err);
+            res.json({result:0});
+            return;
+        }
+        res.json({result:1});
+    });
+
+});
+
+module.exports = router;
 

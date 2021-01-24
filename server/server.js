@@ -6,6 +6,8 @@ const port = process.env.PORT || 3002;
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 
 // CONNECT TO MONGODB SERVER
 var db = mongoose.connection;

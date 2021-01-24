@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import './archive.css'
 
 class Archive extends Component{
+
     render(){
         return(
             <div className="Archive">

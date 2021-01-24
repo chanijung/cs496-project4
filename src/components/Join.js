@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 const Join = () => {
+    const [ semester, setSemester ] = useState('');
+    const [ classNum, setClassNum ] = useState('');
     const [ userId, setUserId ] = useState('');
     const [ userPw, setUserPw ] = useState('');
     const [ userName, setUserName ] = useState('');
     const [ isJoinSuccess, setJoinSuccess ] = useState(false);
     const createUserApi = (user) => {
-        return fetch('/users/new', {
+        return fetch('/users/join', {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -18,9 +20,11 @@ const Join = () => {
         e.preventDefault();
         try {
             const response = await createUserApi({
-                user_id: userId,
-                user_pw: userPw,
-                user_name: userName
+                semester: semester,
+                classNum: classNum,
+                uid: userId,
+                pwd: userPw,
+                name: userName
             });
             if (response.result === 'ok') {
                 setJoinSuccess(true);
@@ -40,21 +44,35 @@ const Join = () => {
             >
             <input
                 type="text"
-                name="user_id"
+                name="semester"
+                value={semester}
+                onChange={e => setSemester(e.target.value)}
+                placeholder="semester"
+            />
+            <input
+                type="text"
+                name="classNum"
+                value={classNum}
+                onChange={e => setClassNum(e.target.value)}
+                placeholder="class"
+            />
+            <input
+                type="text"
+                name="uid"
                 value={userId}
                 onChange={e => setUserId(e.target.value)}
                 placeholder="id"
             />
             <input
                 type="password"
-                name="user_pw"
+                name="pwd"
                 value={userPw}
                 onChange={e => setUserPw(e.target.value)}
                 placeholder="pw"
             />
             <input
-                type="text"
-                name="user_name"
+                type="name"
+                name="name"
                 value={userName}
                 onChange={e => setUserName(e.target.value)}
                 placeholder="name"

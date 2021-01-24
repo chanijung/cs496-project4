@@ -1,8 +1,24 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import './famehall.css'
 
 class Famehall extends Component{
+
+    componentDidMount(){
+        axios.get('/archive')
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+            .then(function(){
+
+            });
+    }
+
     render(){
+        var famehalls = [];
         return(
             <div className="Archive">
                 <div className="site-content">

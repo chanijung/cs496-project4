@@ -21,8 +21,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             username:null,
-            userToken: Cookies.get('user'),
-            hasToken:false
+            // userToken: Cookies.get('user'),
+            // hasToken:false
         };
     }
 
@@ -33,11 +33,11 @@ class App extends React.Component {
     //     }
     //     }, [ this.state.cookies ]);
         
-    setHasToken(userToken){
-        if (userToken && userToken !== 'undefined') {
-            this.state.hasToken = true;
-        }
-    }
+    // setHasToken(userToken){
+    //     if (userToken && userToken !== 'undefined') {
+    //         this.state.hasToken = true;
+    //     }
+    // }
 
     componentDidMount(){
         // axios.post('/users/join',{

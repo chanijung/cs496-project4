@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 
-const Login = ({ setHasCookie }) => {
+const Login = ({ setHasToken }) => {
+// const Login = (loj) => {
+
     const [ userId, setUserId ] = useState('');
     const [ userPw, setUserPw ] = useState('');
     const loginApi = (user) => {
@@ -21,11 +23,12 @@ const Login = ({ setHasCookie }) => {
         }
         try {
             const response = await loginApi({
-                user_id: userId,
-                user_pw: userPw
+                uid: userId,
+                pwd: userPw
             });
             if (response.result === 'ok') {
-                setHasCookie(true);
+                alert('로그인 성공');
+                setHasToken(true);
             } else {
                 throw new Error(response.error);
             }
@@ -44,14 +47,14 @@ const Login = ({ setHasCookie }) => {
             >
                 <input
                     type="text"
-                    name="user_id"
+                    name="uid"
                     value={userId}
                     onChange={e => setUserId(e.target.value)}
                     placeholder="id"
                 />
                 <input
                     type="password"
-                    name="user_pw"
+                    name="pwd"
                     value={userPw}
                     onChange={e => setUserPw(e.target.value)}
                     placeholder="pw"

@@ -1,16 +1,17 @@
 // eslint-disable
 import React, {useState, setState, useEffect} from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
+import {BrowserRouter as Router,Link} from "react-router-dom";
 import { withCookies, useCookies } from 'react-cookie';
 import Navigation from './components/nav';
-import First from './components/first';
 import Home from './components/home';
 import Observer from './components/useEffect';
-// import Login from './Login';
+import Login from './components/Login';
 import Join from './components/Join';
 import './App.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import App from './App.js'
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class LoginOrJoin extends React.Component {
             userToken: Cookies.get('user'),
             hasToken:false
         };
+        this.setHasToken = this.setHasToken.bind(this);
     }
 
 // The effect is fired only when cookies has changed.
@@ -49,27 +51,62 @@ class LoginOrJoin extends React.Component {
 
     
     render(){
-        // var content;
-        // if(this.state.mode === 'home'){
-        //     console.log("home");
-        //     content = <Home />;
-        // }
-        // else if(this.state.mode === 'first'){
-        //     console.log("first");
-        //     content = <First />;
-        // }
-        // const {username} = this.state;
         return (
+            
             <div className="LOJ">
-                {/* <Navigation onChangePage={function(new_mode){
-                    this.setState({mode: new_mode});
-                    }.bind(this)}/> */}
-                {/* {content} */}
                 <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
+                <h1>Login or Join</h1>
+                <Router>
+                {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/app" />}
+                {/* <Router> */}
+                <Switch>
+                    {/* {!this.hasToken ? <Redirect to="/login" /> : <Redirect to="/app" />} */}
+                        <Route
+                            exact path="/login"
+                            render={routerProps => {
+                                return (
+                                    <Login
+                                        {...routerProps}
+                                        // loj = {this}
+                                        // setHasCookie={setHasCookie}
+                                        setHasToken = {this.setHasToken}
+                                    />
+                                );
+                            }}
+                        />
+                        <Route
+                            exact path="/join"
+                            component={Join}
+                        />
+                        <Route
+                            exact path="/app"
+                            render={routerProps => {
+                                return (
+                                    <App
+                                        {...routerProps}
+                                        // setHasCookie={setHasCookie}
+                                        // removeCookie={() => {
+                                        //     removeCookie('user');
+                                        //     setHasCookie(false);
+                                        // }}
+                                    />
+                                );
+                            }}
+                        />
+                </Switch>
+                {/* </Router> */}
+                </Router>
             </div>
+            // <div className="LOJ">
+            //     {/* <Navigation onChangePage={function(new_mode){
+            //         this.setState({mode: new_mode});
+            //         }.bind(this)}/> */}
+            //     {/* {content} */}
+            //     <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
+            // </div>
         );
         ;
     }
 }
 
-export default App;
+export default withCookies(LoginOrJoin);

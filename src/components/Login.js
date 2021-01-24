@@ -1,8 +1,10 @@
-
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-
-const Login = ({ setHasToken }) => {
+import {BrowserRouter as Router} from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
+import App from '../App';
+import LoginOrJoin from '../LoginOrJoin';
+const Login = ({ setHasToken, getHasToken }) => {
 // const Login = (loj) => {
 
     const [ userId, setUserId ] = useState('');
@@ -28,7 +30,8 @@ const Login = ({ setHasToken }) => {
             });
             if (response.result === 'ok') {
                 alert('로그인 성공');
-                setHasToken(true);
+                console.log(getHasToken());
+                setHasToken(response.token);
             } else {
                 throw new Error(response.error);
             }
@@ -42,6 +45,28 @@ const Login = ({ setHasToken }) => {
     return (
         <div>
             <h2>Login</h2>
+            {/* <Router>
+                {!getHasToken() ? <Redirect to="/login" /> : <Redirect to="/" />}
+                <Switch>
+                    <Route
+                        exact path="/"
+                        component={LoginOrJoin}
+                        // render={routerProps => {
+                        //     return (
+                        //         <App
+                        //             {...routerProps}
+                        //             // setHasCookie={setHasCookie}
+                        //             // removeCookie={() => {
+                        //             //     removeCookie('user');
+                        //             //     setHasCookie(false);
+                        //             // }}
+                        //         />
+                        //     );
+                        // }}
+                    />
+                </Switch>
+            </Router> */}
+
             <form
                 onSubmit={handleSubmit}
             >

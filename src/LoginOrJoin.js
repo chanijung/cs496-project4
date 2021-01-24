@@ -12,6 +12,10 @@ import './App.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import App from './App.js'
+import First from './components/first_tab/first';
+import Archive from './components/second_tab/archive'
+import Famehall from './components/second_tab/famehall'
+import Helpful from './components/second_tab/helpful'
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -23,6 +27,9 @@ class LoginOrJoin extends React.Component {
             hasToken:false
         };
         this.setHasToken = this.setHasToken.bind(this);
+        this.getHasToken = this.getHasToken.bind(this);
+        this.removeCookie = this.removeCookie.bind(this);
+        console.log(this.state);
     }
 
 // The effect is fired only when cookies has changed.
@@ -32,10 +39,28 @@ class LoginOrJoin extends React.Component {
     //     }
     //     }, [ this.state.cookies ]);
         
-    setHasToken(userToken){
-        if (userToken && userToken !== 'undefined') {
-            this.state.hasToken = true;
+    setHasToken(token){
+        if(Cookies.get('user')){
+            this.setState(() => {
+                return {hasToken: true};
+            });
         }
+        console.log(this.state);
+        // this.state.hasToken = true;
+    }
+
+    getHasToken(){
+        return this.state.hasToken;
+    }
+
+    removeCookie(){
+        this.setState(() => {
+            return {userToken: null,
+                    hasToken: false};
+        });
+        Cookies.remove('user');
+        console.log("rmcookie");
+        console.log(Cookies.get('user'));
     }
 
     componentDidMount(){
@@ -48,6 +73,8 @@ class LoginOrJoin extends React.Component {
         // });
 
     }
+    
+    
 
     
     render(){
@@ -55,11 +82,11 @@ class LoginOrJoin extends React.Component {
             
             <div className="LOJ">
                 <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
-                <h1>Login or Join</h1>
+                {/* <h1>Login or Join</h1> */}
                 <Router>
-                {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/app" />}
+                {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/main" />}
                 {/* <Router> */}
-                <Switch>
+                {/* <Switch> */}
                     {/* {!this.hasToken ? <Redirect to="/login" /> : <Redirect to="/app" />} */}
                         <Route
                             exact path="/login"
@@ -70,6 +97,7 @@ class LoginOrJoin extends React.Component {
                                         // loj = {this}
                                         // setHasCookie={setHasCookie}
                                         setHasToken = {this.setHasToken}
+                                        getHasToken = {this.getHasToken}
                                     />
                                 );
                             }}
@@ -79,21 +107,26 @@ class LoginOrJoin extends React.Component {
                             component={Join}
                         />
                         <Route
-                            exact path="/app"
+                            path="/main"
                             render={routerProps => {
                                 return (
-                                    <App
+                                    <Navigation
                                         {...routerProps}
                                         // setHasCookie={setHasCookie}
-                                        // removeCookie={() => {
-                                        //     removeCookie('user');
-                                        //     setHasCookie(false);
-                                        // }}
+                                        removeCookie={
+                                            this.removeCookie
+                                            // setHasCookie();
+                                        }
                                     />
                                 );
                             }}
                         />
-                </Switch>
+                        <Route path="/main" component={Home}/>
+                        <Route path="/main/first" component={First}/>
+                        <Route path="/main/archive" component={Archive}/>
+                        <Route path="/main/helpful" component={Helpful}/>
+                        <Route path="/main/famehall" component={Famehall}/>
+                {/* </Switch> */}
                 {/* </Router> */}
                 </Router>
             </div>

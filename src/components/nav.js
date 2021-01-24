@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import './nav.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import icon from './icon.PNG';
+import LoginOrJoin from '../LoginOrJoin';
 
-class Navigation extends Component{
-  render(){
+const Navigation = ({removeCookie}) => {
+  
     return(
       <div className="Navigation">
         <div className="Nav">
@@ -30,12 +31,14 @@ class Navigation extends Component{
             </li>
             <li className="navilist"><a className="Navs" href="/third">세번째</a></li>
             <li className="navilist"><a className="Navs" color="yellow" href="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</a></li>
+            {/* <li className="navilist>"><a className="Navs" >로그아웃</a></li> */}
+            <li className="navilist>"><a className="Navs" href="/" onClick={removeCookie}>로그아웃</a></li>
+
           </div>
         </div>
     </div>
     );
   }
-}
 //I'm goedo kid.
 
 export default Navigation;

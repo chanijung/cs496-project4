@@ -1,14 +1,10 @@
 // eslint-disable
 import React, {useState, setState, useEffect} from 'react';
-import {BrowserRouter as Router,Link} from "react-router-dom";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { withCookies, useCookies } from 'react-cookie';
 import Navigation from './components/nav';
-import First from './components/first_tab/first';
+import First from './components/first';
 import Home from './components/home';
-import Archive from './components/second_tab/archive'
-import Famehall from './components/second_tab/famehall'
-import Helpful from './components/second_tab/helpful'
 import Observer from './components/useEffect';
 // import Login from './Login';
 import Join from './components/Join';
@@ -16,11 +12,12 @@ import './App.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-class App extends React.Component {
+class LoginOrJoin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             username:null,
+            mode:'home',
             userToken: Cookies.get('user'),
             hasToken:false
         };
@@ -52,17 +49,24 @@ class App extends React.Component {
 
     
     render(){
-        const {username} = this.state;
+        // var content;
+        // if(this.state.mode === 'home'){
+        //     console.log("home");
+        //     content = <Home />;
+        // }
+        // else if(this.state.mode === 'first'){
+        //     console.log("first");
+        //     content = <First />;
+        // }
+        // const {username} = this.state;
         return (
-            <Router>
-                <Route path="/" component={Navigation}/>
-                <Route exact path="/" component={Home}/>
-                <Route path="/first" component={First}/>
-                <Route path="/archive" component={Archive}/>
-                <Route path="/helpful" component={Helpful}/>
-                <Route path="/famehall" component={Famehall}/>
-                {/* <Route path="/second" component={Home}/> */}
-            </Router>
+            <div className="LOJ">
+                {/* <Navigation onChangePage={function(new_mode){
+                    this.setState({mode: new_mode});
+                    }.bind(this)}/> */}
+                {/* {content} */}
+                <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
+            </div>
         );
         ;
     }

@@ -18,15 +18,50 @@
   font-family: "Jalnan";
   vertical-align: middle;
 }
+.Nav_title:hover{
+  text-decoration: none;
+  color: white;
+}
 
 .Navi {
+  height: inherit;
   width: 40vw;
   display: flex;
   justify-content: space-evenly;
+}
+
+.navilist{
+  padding: 1vw;
 }
 
 .Navs {
   color: white;
   font-family: "Jalnan";
   text-decoration: none;
+  align-content: center;
+}
+.Navs:hover{
+  color: white;
+  text-decoration: none;
+}
+
+.Navi>li:hover .hidden{
+  display: block;
+}
+
+
+
+li{
+  list-style: none;
+}
+ul{
+  list-style: none;
+}
+.hidden{
+  position: absolute; 
+  top: 50px; 
+  width: fit-content; 
+  border: 1px solid #000; 
+  display: none; 
+  box-sizing: border-box;
 }

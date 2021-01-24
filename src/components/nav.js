@@ -15,30 +15,27 @@ class Navigation extends Component{
                 width='40'
                 height='40'
                 />
-            <a className="Nav_title" href="/home" onClick={function(e){
-              e.preventDefault();
-              this.props.onChangePage('home');
-            }.bind(this)}>몰입캠프</a>
+            <a className="Nav_title" href="/">몰입캠프</a>
           </div>
           <div className="Navi">
-            <a className="Navs" href="/first" onClick={function(e){
-              e.preventDefault();
-              this.props.onChangePage('first');
-            }.bind(this)}>첫번째</a>
-            <a className="Navs" href="/second" onClick={function(e){
-              e.preventDefault();
-              this.props.onChangePage('first');
-            }.bind(this)}>두번째</a>
-            <a className="Navs" href="/third"onClick={function(e){
-              e.preventDefault();
-              this.props.onChangePage('first');
-            }.bind(this)}>세번째</a>
-            <a className="Navs" color="yellow" >지원하기</a>
+            <li className="navilist"><a className="Navs" href="/first">첫번째</a></li>
+            <li className="navilist"><a className="Navs" href="/archive">아카이브</a>
+              <ul className="hidden">
+                <a href="/archive">강의자료</a>
+                <br/>
+                <a href="/helpful">팁/사이트</a>
+                <br/>
+                <a href="framehall">명예의 전당</a>
+              </ul>
+            </li>
+            <li className="navilist"><a className="Navs" href="/third">세번째</a></li>
+            <li className="navilist"><a className="Navs" color="yellow" href="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</a></li>
           </div>
         </div>
     </div>
     );
   }
 }
+//I'm goedo kid.
 
 export default Navigation;

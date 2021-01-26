@@ -197,8 +197,8 @@ class Project extends Component{
 
         let content = null;
         var recent = window.location.href;
-        recent = recent.substring(21);
-        console.log("recent.length: ",recent.length);
+        // recent = recent.substring(21);
+        // console.log("recent.length: ",recent.length);
         
         if (this.state.summaries.length === 0){
             content = <ProjectsContent pagetitle="Loading..." team={["",""]}></ProjectsContent>
@@ -207,8 +207,11 @@ class Project extends Component{
         //     continue;
         // }
         else{
-            if(recent.length === 14){
-                console.log("length 14")
+            const apiIndex = recent.indexOf("/projects");
+            const uri = recent.substring(apiIndex);
+            console.log("substring: ",uri);
+            if(uri.length === 9){
+                console.log("length 9")
                 console.log("this.state.summaries: ", this.state.summaries);
                 content = <div>
                             <ProjectSubmission></ProjectSubmission>
@@ -218,7 +221,7 @@ class Project extends Component{
             }
             else{
                 console.log("length not 14")
-                var order = 1 * recent.substring(15);
+                var order = 1 * uri.substring(10);
                 console.log(this.state.projects);
                 var url = ((this.state.projects[order]).gitUrl);
                 content = <ProjectsContent pagetitle={(this.state.projects[order]).projectName} 

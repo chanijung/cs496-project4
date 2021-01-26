@@ -70,13 +70,14 @@ class Famehall extends Component{
         let content = null;
         var recent = window.location.href;
         console.log("href: ",window.location.href)
-        recent = recent.substring(21);
-        console.log(recent.length);
-        if(recent.length == 14){
+        const apiIndex = recent.indexOf("/famehall");
+        const uri = recent.substring(apiIndex);
+        console.log("substring: ",uri);
+        if(uri.length === 9){
             content = <FamehallContent pagetitle="명예의 전당" pagecontent={this.state.datas}></FamehallContent>
         }
         else{
-            var order = 1 * recent.substring(15);
+            var order = 1 * uri.substring(10);
             console.log(order);
             var url = 'https://' + ((this.state.famehalls[order]).gitUrl);
             content = <FamehallContent pagetitle={(this.state.famehalls[order]).projectName} 

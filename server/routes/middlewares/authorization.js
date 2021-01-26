@@ -6,7 +6,8 @@ app.use(cookieParser());
 
 const jwt = require('jsonwebtoken');
 var dotenv = require('dotenv');
-dotenv.config({path:'../../.env'});
+// dotenv.config({path:'../../.env'});
+dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const verifyToken = (req, res, next) => {

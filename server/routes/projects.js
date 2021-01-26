@@ -9,7 +9,8 @@ router.use(require('cookie-parser')());
 
 const jwt = require('jsonwebtoken');
 var dotenv = require('dotenv');
-dotenv.config({path:'../../.env'});
+// dotenv.config({path:'../../.env'});
+dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const Project = require('../models/project');

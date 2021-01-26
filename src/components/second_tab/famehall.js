@@ -1,13 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import {BrowserRouter as Router,Link} from "react-router-dom";
 import axios from 'axios';
 import './famehall.css'
 
+var famehalls = [];
+
 class Famehall extends Component{
+    constructor(props){
+        super(props);
+        famehalls = [];
+    }
 
     componentDidMount(){
-        axios.get('/archive')
+        var a = this.state;
+        axios.get('/famehalls/all')
             .then(function(response){
-                console.log(response);
+                // this.state.famehalls.push(response.data);
+                famehalls.push(response.data);
+                console.log(famehalls);
             })
             .catch(function(err){
                 console.log(err);
@@ -18,7 +28,17 @@ class Famehall extends Component{
     }
 
     render(){
-        var famehalls = [];
+        var datas = [];
+        var i = 0;
+        while(i < famehalls.length){
+            datas.push(<a className="famehalls">
+                {famehalls.find(i).team}
+                {/* {famehalls.get(i).projectName}
+                {famehalls.get(i).gitUrl}
+                {famehalls.get(i).year} */}
+            </a>)
+            i = i + 1;
+        }
         return(
             <div className="Archive">
                 <div className="site-content">
@@ -33,7 +53,7 @@ class Famehall extends Component{
                     <div className="page-content">
                         <div className="main-block">
                             <div className="content">
-                                명예의 전당 리스트
+                                {datas}
                             </div>
                         </div>
                     </div>
@@ -49,19 +69,19 @@ class Famehall extends Component{
                                 <div className="menu-block-wrapper">
                                     <ul className="menu">
                                         <li className="firstleaf">
-                                            <a href="/archive">
+                                            <Link to="/main/archive">
                                                 강의 자료
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li className="second leaf">
-                                            <a href="/helpful">
+                                            <Link to="/main/helpful">
                                                 팁/사이트
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li className="third leaf">
-                                            <a href="/famehall">
+                                            <Link to="/main/famehall">
                                                 명예의 전당
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>

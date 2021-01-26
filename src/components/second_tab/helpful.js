@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {BrowserRouter as Router,Link} from "react-router-dom";
 import './helpful.css'
 
 class Helpful extends Component{
@@ -33,19 +34,19 @@ class Helpful extends Component{
                                 <div className="menu-block-wrapper">
                                     <ul className="menu">
                                         <li className="firstleaf">
-                                            <a href="/archive">
+                                            <Link to="/main/archive">
                                                 강의 자료
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li className="second leaf">
-                                            <a href="/helpful">
+                                            <Link to="/main/helpful">
                                                 팁/사이트
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li className="third leaf">
-                                            <a href="/famehall">
+                                            <Link to="/main/famehall">
                                                 명예의 전당
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>

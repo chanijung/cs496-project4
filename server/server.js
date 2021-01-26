@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 // const api = require('./routes/index');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3002;
+const port = 3003;
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -28,6 +28,11 @@ app.use(bodyParser.json());
 const userRouter = require('./routes/users');
 app.use('/users', userRouter);
 
+const famehallRouter = require('./routes/famehalls');
+app.use('/famehalls', famehallRouter);
+
+const projectRouter = require('./routes/projects');
+app.use('/projects', projectRouter);
 
 app.listen(port, ()=>{
     console.log(`express is running on ${port}`);

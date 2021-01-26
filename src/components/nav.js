@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router,Link} from "react-router-dom";
 import './nav.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import icon from './icon.PNG';
@@ -16,23 +17,22 @@ const Navigation = ({removeCookie}) => {
                 width='40'
                 height='40'
                 />
-            <a className="Nav_title" href="/">몰입캠프</a>
+            <Link className="Nav_title" to="/main">몰입캠프</Link>
           </div>
           <div className="Navi">
-            <li className="navilist"><a className="Navs" href="/first">첫번째</a></li>
-            <li className="navilist"><a className="Navs" href="/archive">아카이브</a>
+            <li className="navilist"><Link className="Navs" to="/main/projects">분반 커뮤니티</Link></li>
+            <li className="navilist"><Link className="Navs" to="/main/archive">아카이브</Link>
               <ul className="hidden">
-                <a href="/archive">강의자료</a>
+                <Link to="/main/archive">강의자료</Link>
                 <br/>
-                <a href="/helpful">팁/사이트</a>
+                <Link to="/main/helpful">팁/사이트</Link>
                 <br/>
-                <a href="framehall">명예의 전당</a>
+                <Link to="/main/famehall">명예의 전당</Link>
               </ul>
             </li>
-            <li className="navilist"><a className="Navs" href="/third">세번째</a></li>
-            <li className="navilist"><a className="Navs" color="yellow" href="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</a></li>
-            {/* <li className="navilist>"><a className="Navs" >로그아웃</a></li> */}
-            <li className="navilist>"><a className="Navs" href="/" onClick={removeCookie}>로그아웃</a></li>
+            <li className="navilist"><Link className="Navs" to="/main/third">세번째</Link></li>
+            <li className="navilist"><Link className="Navs" color="yellow" to="/main" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>
+            <li className="navilist"><Link className="Navs" href="" onClick={removeCookie}>로그아웃</Link></li>
 
           </div>
         </div>

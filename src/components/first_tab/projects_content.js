@@ -9,7 +9,8 @@ class ProjectsContent extends Component{
     render(){
         var pageTitle = this.props.pagetitle;
         var pageContent = this.props.pagecontent;
-        var team = this.props.team;
+        var member1 = this.props.member1;
+        var member2 = this.props.member2;
         var gitUrl = this.props.gitUrl;
         var detail = this.props.detail;
         
@@ -29,10 +30,10 @@ class ProjectsContent extends Component{
                                 {pageContent}
                             </div>
                             <div className="member1">
-                                {team[0]}
+                                {member1}
                             </div>
                             <div className="member2">
-                                {team[1]}
+                                {member2}
                             </div>
                             <div className="gitUrl">
                                 {gitUrl}

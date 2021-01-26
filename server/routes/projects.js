@@ -30,22 +30,27 @@ router.post('/submit', verifyToken, async function(req,res){
             const clientToken =req.cookies.user;
             const decoded = jwt.verify(clientToken, SECRET_KEY);
             if (decoded){
+                console.log("decoded");
                 const uid = decoded.uid;
                 const user = await User.findOne({uid: uid});
                 project.semester = user.semester;
                 project.classNum = user.classNum;
+                await project.save();
             } else{
+                console.log("not decoded");
                 res.status(401).json({error: 'unauthorized in /submit'});
             }
         } catch (err) {
+            console.log("first catch")
             res.status(401).json({error: 'token expired in /submit'});
         }
-        await project.save();
+        console.log("project saved?")
         res.status(201).json({
             result:'ok',
             project: project
         });
     } catch (err) {
+        console.log("second catch")
         console.error(err);
     }
 })

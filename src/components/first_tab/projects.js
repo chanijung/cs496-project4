@@ -24,7 +24,9 @@ class Project extends Component{
             pagetitle: "프로젝트",
             pagecontent: [],
 
-            done:false
+            done:false,
+
+            projectCount: 0
           };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -33,7 +35,8 @@ class Project extends Component{
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
-    async testAPI(project){
+
+    async submitAPI(project){
         
         return fetch('/projects/submit', {
             credentials:'same-origin', //or 'include'
@@ -50,7 +53,7 @@ class Project extends Component{
         e.preventDefault();
         
         try {
-            const response = await this.testAPI({
+            const response = await this.submitAPI({
                 team: [this.state.member1, this.state.member2],
                 projectName: this.state.projectName,
                 gitUrl: this.state.gitUrl,
@@ -59,7 +62,27 @@ class Project extends Component{
 
             if (response.result === 'ok') {
                 alert('test post 성공');
+                var project = {
+                    semester: this.state.semester,
+                    classNum: this.state.classNum,
+                    member1: this.state.member1,
+                    member2: this.state.member2,
+                    projectName: this.state.projectName,
+                    gitUrl: this.state.gitUrl,
+                    detail: this.state.detail
+                }
+                this.state.projects.push(project);
+                console.log("mem1: ", this.state.member1)
+                console.log("mem2: ", this.state.member2);
+                this.state.summaries.push(<li> <Link className="projects" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>
+                {this.state.projectName}    {this.state.member1} {this.state.member2}</Link></li>);
+                this.setState(() => {
+                    return {
+                        done: false
+                    }
+                })
             } else {
+                alert('test post 실패');
                 throw new Error(response.error);
             }
         } catch (err) {
@@ -68,37 +91,11 @@ class Project extends Component{
         }
     };
 
+
+
     async displayAPI(){
         return fetch('/projects/all')
         .then(response => response.json());
-        // .then(async function(response){
-        //     // this.state.projects.push(response.data);
-        //     console.log("on projects/all response")
-        //     var i = 0;
-        //     var projectsData = await response.json().projects;
-        //     console.log(projectsData);
-        //     // projectsData.map((myData) => {
-        //     //     console.log("data: ",myData);
-        //     //     var url = "/main/projects/" + i;
-        //     //     a.projects.push(response.data[i]);
-        //     //     a.summaries.push(<li> <Link className="projects" key={i} to={url}>
-        //     //     {a.projects[i].projectName}    {a.projects[i].member1} {a.projects[i].member2}</Link></li>);
-        //     //     });
-        //     while(i < projectsData.length){
-        //         console.log(i,"th data: ",projectsData[i]);
-        //         var url = "/main/projects/" + i;
-        //         a.projects.push(projectsData[i]);
-        //         a.summaries.push(<li> <Link className="projects" key={i} to={url}>
-        //         {a.projects[i].projectName}    {a.projects[i].member1} {a.projects[i].member2}</Link></li>);
-        //         i = i + 1;
-        //     }
-        //     a.pagecontent = a.summaries;
-        //     console.log("projects received: ", a.projects);
-        // })
-        // .catch(function(err){
-        //     console.log("get projects/all error")
-        //     console.log(err);
-        // })
     }
     
     handleInputChange(event) {
@@ -109,40 +106,28 @@ class Project extends Component{
         this.setState({
           [name]: value
         });
-        // console.log("name: ", name, "/ value: ", value);
-        // console.log(this.state);
     }
 
     async displayProjects(){
         try {
             const response = await this.displayAPI();
-            console.log("after executing displayAPI");
+            // console.log("after executing displayAPI");
             if (response.result === 'ok') {
                 console.log("get projects/all succeeded");
 
-                // .then(async function(response){
-                    // this.state.projects.push(response.data);
-                    // console.log("on projects/all response")
                     var b = this;  
                     var a = this.state;  
                     var i = 0;
                     var projectsData = response.projects;
-                    console.log("projectsData: ",projectsData);
-                    // projectsData.map((myData) => {
-                    //     console.log("data: ",myData);
-                    //     var url = "/main/projects/" + i;
-                    //     a.projects.push(response.data[i]);
-                    //     a.summaries.push(<li> <Link className="projects" key={i} to={url}>
-                    //     {a.projects[i].projectName}    {a.projects[i].member1} {a.projects[i].member2}</Link></li>);
-                    //     });
                     while(i < projectsData.length){
                         console.log(i,"th data: ",projectsData[i]);
                         var url = "/main/projects/" + i;
                         a.projects.push(projectsData[i]);
                         a.summaries.push(<li> <Link className="projects" key={i} to={url}>
-                        {a.projects[i].projectName}    {a.projects[i].member1} {a.projects[i].member2}</Link></li>);
+                        {projectsData[i].projectName}    {projectsData[i].team[0]} {projectsData[i].team[1]}</Link></li>);
                         i = i + 1;
                     }
+                    a.projectCount = i;
                     b.setState(() => {
                         return {
                             done: true
@@ -158,37 +143,10 @@ class Project extends Component{
         }
     }
 
-    // componentWillMount(){
-    //     this._asyncRequest = this.displayProjects().then();
-    // }
 
-    // componentWillUnmount(){
-    //     if (this._asyncRequest) {
-    //         this._asyncRequest.cancel();
-    //     }
-    // }
 
     componentDidMount(){
         this.displayProjects();
-        // axios.get('/projects/all')
-        //     .then(function(response){
-        //         // this.state.projects.push(response.data);
-        //         var i = 0;
-        //         while(i < response.data.length){
-        //             var url = "/main/projects/" + i;
-        //             a.projects.push(response.data[i]);
-        //             a.summaries.push(<li> <Link className="projects" key={i} to={url}>
-        //             {a.projects[i].projectName}    {a.projects[i].member1} {a.projects[i].member2}</Link></li>);
-        //             i = i + 1;
-        //         }
-        //         a.pagecontent = a.summaries;
-        //     })
-        //     .catch(function(err){
-        //         console.log(err);
-        //     })
-        //     .then(function(){
-
-        //     });
     }
 
     render(){
@@ -197,35 +155,75 @@ class Project extends Component{
 
         let content = null;
         var recent = window.location.href;
-        // recent = recent.substring(21);
-        // console.log("recent.length: ",recent.length);
+
+        const projectSubmission = 
+            <div className="main-block">
+                <div className="content">
+                    프로젝트 리스트
+                </div>
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        type="text"
+                        name="member1"
+                        // value={this.member1}
+                        onChange={(e)=>{this.state.member1 = e.target.value}}
+                        placeholder="Member 1"
+                    />
+                    <input
+                        type="text"
+                        name="member2"
+                        // value={this.member2}
+                        onChange={(e)=>{this.state.member2 = e.target.value}}
+                        placeholder="Member 2"
+                    />
+                    <input
+                        type="text"
+                        name="projectName"
+                        // value={this.projectName}
+                        onChange={(e)=>{this.state.projectName = e.target.value}}
+                        placeholder="Project Name"
+                    />
+                    <input
+                        type="text"
+                        name="gitUrl"
+                        // value={this.gitUrl}
+                        onChange={(e)=>{this.state.gitUrl = e.target.value}}
+                        placeholder="Github URL"
+                    />
+                    <input
+                        type="text"
+                        name="detail"
+                        // value={this.detail}
+                        onChange={(e)=>{this.state.detail = e.target.value}}
+                        placeholder="Detail Explanations"
+                    />
+                    <button
+                        type="submit"
+                    >
+                        제출
+                    </button>
+                </form>
+            </div>
         
         if (this.state.summaries.length === 0){
-            content = <ProjectsContent pagetitle="Loading..." team={["",""]}></ProjectsContent>
+            content = <ProjectsContent pagetitle="Loading..."></ProjectsContent>
         }
-        // while(this.state.summaries.length === 0){
-        //     continue;
-        // }
         else{
             const apiIndex = recent.indexOf("/projects");
             const uri = recent.substring(apiIndex);
-            console.log("substring: ",uri);
             if(uri.length === 9){
-                console.log("length 9")
-                console.log("this.state.summaries: ", this.state.summaries);
                 content = <div>
-                            <ProjectSubmission></ProjectSubmission>
-                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries} team={["",""]}></ProjectsContent> 
-                        </div> //없는 prop도 initialize해줘야 하나?
-                console.log("end of lenth 14")
+                            {projectSubmission}
+                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries}></ProjectsContent> 
+                        </div> 
             }
             else{
-                console.log("length not 14")
                 var order = 1 * uri.substring(10);
                 console.log(this.state.projects);
                 var url = ((this.state.projects[order]).gitUrl);
                 content = <ProjectsContent pagetitle={(this.state.projects[order]).projectName} 
-                                            team={(this.state.projects[order]).team}
+                                            member1={(this.state.projects[order]).team[0]}
+                                            member2={(this.state.projects[order]).team[1]}
                                             gitUrl={<Link href="" onClick={() => window.open(url, '_blank')}>{(this.state.projects[order]).gitUrl}</Link>}
                                             detail={(this.state.projects[order]).detail} ></ProjectsContent>
             }
@@ -270,4 +268,3 @@ class Project extends Component{
 }
 
 export default withCookies(Project);
-// export default First;

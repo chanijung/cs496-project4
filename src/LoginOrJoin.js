@@ -8,7 +8,6 @@ import Home from './components/home';
 import Observer from './components/useEffect';
 import Login from './components/Login';
 import Join from './components/Join';
-import './App.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import App from './App.js'
@@ -22,9 +21,8 @@ class LoginOrJoin extends React.Component {
         super(props);
         this.state = {
             username:null,
-            mode:'home',
             userToken: Cookies.get('user'),
-            hasToken:false
+            hasToken: Cookies.get('user') != null
         };
         this.setHasToken = this.setHasToken.bind(this);
         this.getHasToken = this.getHasToken.bind(this);
@@ -38,12 +36,19 @@ class LoginOrJoin extends React.Component {
     //         this.state.hasCookie = true;
     //     }
     //     }, [ this.state.cookies ]);
-        
+    
     setHasToken(token){
-        if(Cookies.get('user')){
+        if(token != null){
             this.setState(() => {
-                return {hasToken: true};
+                return {userToken: Cookies.get('user'),
+                    hasToken: true};
             });
+        }
+        else{
+            this.setState(() => {
+                return {userToken: null,
+                    hasToken: false};
+            })
         }
         console.log(this.state);
         // this.state.hasToken = true;
@@ -59,7 +64,7 @@ class LoginOrJoin extends React.Component {
                     hasToken: false};
         });
         Cookies.remove('user');
-        console.log("rmcookie");
+        console.log(this.state);
         console.log(Cookies.get('user'));
     }
 
@@ -81,7 +86,7 @@ class LoginOrJoin extends React.Component {
         return (
             
             <div className="LOJ">
-                <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
+                {/* <Observer value={this.state.userToken} didUpdate={this.setHasToken} /> */}
                 {/* <h1>Login or Join</h1> */}
                 <Router>
                 {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/main" />}
@@ -121,7 +126,7 @@ class LoginOrJoin extends React.Component {
                                 );
                             }}
                         />
-                        <Route path="/main" component={Home}/>
+                        <Route exact path="/main" component={Home}/>
                         <Route path="/main/first" component={First}/>
                         <Route path="/main/archive" component={Archive}/>
                         <Route path="/main/helpful" component={Helpful}/>

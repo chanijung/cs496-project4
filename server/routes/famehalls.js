@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Famehall = require('../models/famehall');
 
-router.get('/famehall', function(req, res){
+router.get('/all', function(req, res){
     Famehall.find(function(err, famehall){
         if(err) return res.status(500).send({error: 'database failure'});
         res.json(famehall);

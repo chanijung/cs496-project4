@@ -28,6 +28,9 @@ app.use(bodyParser.json());
 const userRouter = require('./routes/users');
 app.use('/users', userRouter);
 
+const famehallRouter = require('./routes/famehalls');
+app.use('/famehalls', famehallRouter);
+
 
 app.listen(port, ()=>{
     console.log(`express is running on ${port}`);

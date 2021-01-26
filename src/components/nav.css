@@ -40,6 +40,7 @@
   text-decoration: none;
   align-content: center;
 }
+
 .Navs:hover{
   color: white;
   text-decoration: none;
@@ -49,6 +50,9 @@
   display: block;
 }
 
+.hidden:hover{
+  display: block;
+}
 
 
 li{
@@ -64,4 +68,5 @@ ul{
   border: 1px solid #000; 
   display: none; 
   box-sizing: border-box;
+  z-index: 2;
 }

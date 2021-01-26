@@ -31,7 +31,7 @@ const Navigation = ({removeCookie}) => {
               </ul>
             </li>
             <li className="navilist"><Link className="Navs" to="/main/third">세번째</Link></li>
-            <li className="navilist"><Link className="Navs" color="yellow" to="/main" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>
+            <li className="navilist"><Link className="Navs" color="yellow" to="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>
             <li className="navilist"><Link className="Navs" href="" onClick={removeCookie}>로그아웃</Link></li>
 
           </div>

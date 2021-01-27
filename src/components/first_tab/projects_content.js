@@ -1,18 +1,25 @@
 import React, {Component} from "react";
-import './projects.css'
+import './projects.css';
+import ProjectListItem from "./project_list_item";
 
 class ProjectsContent extends Component{
     constructor(props){
         super(props);
+        this.state={
+            done:this.props.done
+        }
     }
 
     render(){
+        console.log("ProjectsContent render")
         var pageTitle = this.props.pagetitle;
         var pageContent = this.props.pagecontent;
         var member1 = this.props.member1;
         var member2 = this.props.member2;
         var gitUrl = this.props.gitUrl;
         var detail = this.props.detail;
+
+        console.log("pageContent in projects_content.js: ", pageContent);
         
         return(
             <div className="site-content">

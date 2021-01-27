@@ -4,7 +4,7 @@ import { withCookies } from 'react-cookie';
 import './projects.css';
 import Cookies from 'js-cookie';
 import ProjectsContent from "./projects_content";
-import ProjectSubmission from "./project_submission";
+import ProjectListItem from "./project_list_item";
 
 
 class Project extends Component{
@@ -74,13 +74,21 @@ class Project extends Component{
                 this.state.projects.push(project);
                 console.log("mem1: ", this.state.member1)
                 console.log("mem2: ", this.state.member2);
-                this.state.summaries.push(<li> <Link className="projects" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>
-                {this.state.projectName}    {this.state.member1} {this.state.member2}</Link></li>);
-                this.setState(() => {
-                    return {
-                        done: false
-                    }
-                })
+                // this.state.summaries.push(<li> <Link className="projects" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>
+                // {this.state.projectName}    {this.state.member1} {this.state.member2}</Link></li>);
+                // this.state.summaries.push(<ProjectListItem projectCount={this.state.projectCount} projectName={this.state.projectName} member1={this.state.member1} member2={this.state.member2}></ProjectListItem>);
+                this.state.summaries.push(
+                    <li>
+                        <Link className="project_item" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>{this.state.projectName}</Link>
+                        <div>{this.state.member1}</div>
+                        <div>{this.state.member2}</div>
+                    </li>
+                )
+                console.log("handlesubmit summaires: ", this.state.summaries);
+                this.state.projectCount += 1;
+                console.log("before setstate in handle submit: ", this.state.done);
+                this.setState({done: false})
+                console.log("after setstate in handle submit: ", this.state.done);
             } else {
                 alert('test post 실패');
                 throw new Error(response.error);
@@ -110,6 +118,7 @@ class Project extends Component{
 
     async displayProjects(){
         try {
+            console.log("displayprojects start")
             const response = await this.displayAPI();
             // console.log("after executing displayAPI");
             if (response.result === 'ok') {
@@ -123,17 +132,30 @@ class Project extends Component{
                         console.log(i,"th data: ",projectsData[i]);
                         var url = "/main/projects/" + i;
                         a.projects.push(projectsData[i]);
-                        a.summaries.push(<li> <Link className="projects" key={i} to={url}>
-                        {projectsData[i].projectName}    {projectsData[i].team[0]} {projectsData[i].team[1]}</Link></li>);
+                        // a.summaries.push(<li> <Link className="projects" key={i} to={url}>
+                        // {projectsData[i].projectName}    {projectsData[i].team[0]} {projectsData[i].team[1]}</Link></li>);
+                        // a.summaries.push(<ProjectListItem projectCount={i} projectName={projectsData[i].projectName} member1={projectsData[i].team[0]} member2={projectsData[i].team[1]}></ProjectListItem>)
+                        this.state.summaries.push(
+                            <li>
+                                <Link className="project_item" key={i} to={"/main/projects/" + i}>{projectsData[i].projectName}</Link>
+                                <div>{projectsData[i].team[0]}</div>
+                                <div>{projectsData[i].team[1]}</div>
+                            </li>
+                        )
+                        console.log("summaries in displayprojects: ", a.summaries);
                         i = i + 1;
                     }
                     a.projectCount = i;
-                    b.setState(() => {
-                        return {
-                            done: true
-                        }
-                    })
                     a.pagecontent = a.summaries;
+                    console.log("before setstate",this.state.done)
+                    this.setState({done: true})
+                    // this.setState(() => {
+                    //     return {
+                    //         done: true
+                    //     }
+                    // })
+                    console.log("after setstate",this.state.done)
+                    console.log("pagecontent = summaries = ", a.pagecontent);
                     console.log("projects completed: ", a.projects);
             }
         }
@@ -153,13 +175,12 @@ class Project extends Component{
 
         console.log("render project.js");
 
-        let content = null;
+        var content;
         var recent = window.location.href;
 
         const projectSubmission = 
             <div className="main-block">
                 <div className="content">
-                    프로젝트 리스트
                 </div>
                 <form onSubmit={this.handleSubmit}>
                     <input
@@ -213,9 +234,12 @@ class Project extends Component{
             const uri = recent.substring(apiIndex);
             if(uri.length === 9){
                 content = <div>
-                            {projectSubmission}
-                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries}></ProjectsContent> 
+                            <div>
+                                {projectSubmission}
+                            </div>
+                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries} done={true}></ProjectsContent> 
                         </div> 
+                        // summaries 대신 pagecontent?
             }
             else{
                 var order = 1 * uri.substring(10);
@@ -225,13 +249,17 @@ class Project extends Component{
                                             member1={(this.state.projects[order]).team[0]}
                                             member2={(this.state.projects[order]).team[1]}
                                             gitUrl={<Link href="" onClick={() => window.open(url, '_blank')}>{(this.state.projects[order]).gitUrl}</Link>}
-                                            detail={(this.state.projects[order]).detail} ></ProjectsContent>
+                                            detail={(this.state.projects[order]).detail} 
+                                            done={true}></ProjectsContent>
             }
         }
 
         return(
             <div className="Projects">
+                <div>
                 {content}
+                </div>
+                
                 <aside className="sidebar">
                     <h2 className="sidebar_name">
                         분반 커뮤니티

@@ -9,7 +9,6 @@ router.use(require('cookie-parser')());
 
 const jwt = require('jsonwebtoken');
 var dotenv = require('dotenv');
-
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 

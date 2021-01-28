@@ -117,19 +117,23 @@ class CommunityContent extends Component{
             return(
                 <div className="site-content">
                         <div className="page-header">
-                            <Link to="/main/newwrite">
-                                글쓰기
-                            </Link>
+                            <div className="header">
                             <h1 className="page-title">
                                 {pageTitle}
                             </h1>
+                            <div className="new_write">
+                                <Link className="new_write_btn" to="/main/newwrite">
+                                    글 쓰기
+                                </Link>
+                            </div>
+                            </div>
                             {/* <u1 className="breadcrumb">
                                 홈 > 강의자료(이런거)
                             </u1> */}
                         </div>
                         <div className="page-content">
                             <div className="main-block">
-                                <div className="content">
+                                <div className="contents">
                                     
                                         {pageContent}
                                     
@@ -150,6 +154,9 @@ class CommunityContent extends Component{
             var content = pageContent.content;
             var writer = pageContent.writer;
             var date = pageContent.date;
+            var f_date = date.substring(0,10);
+            var s_date = date.substring(11,19);
+            date = f_date + "  " +  s_date;
             var type = pageContent.type;
             var title = "[";
             if(type == 0){
@@ -161,7 +168,8 @@ class CommunityContent extends Component{
             else{
                 title = "[창업] " + pageTitle;
             }
-            var info = "날짜: " + date + "  작성자: " + writer
+            var info = "작성자: " + writer;
+            var info2 = "날짜: " + date;
             return(
                 <div className="site-content">
                     <div className="page-header">
@@ -169,7 +177,8 @@ class CommunityContent extends Component{
                             {title}
                         </h1>
                         <u1 className="breadcrumb">
-                            {info}
+                            <div>{info}</div>
+                            <div>{info2}</div>
                         </u1>
                     </div>
                     <div className="page-content">

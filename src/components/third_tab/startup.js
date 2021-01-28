@@ -6,14 +6,12 @@ import Observer from "../useEffect"
 import axios from 'axios';
 import '../second_tab/famehall.css'
 
-class Community extends Component{
+class Startup extends Component{
     constructor(props){
         super(props);
-        console.log(this.props.userId);
         this.state = {
             communities: [],
             datas: [],
-            ids: [],
             pagecontent: [],
             done: false,
 
@@ -23,7 +21,6 @@ class Community extends Component{
             update: false
         }
         this.componentDidMount = this.componentDidMount.bind(this);
-       
         // this.OnPageChange = this.OnPageChange.bind(this);
         // famehalls = [];
     }
@@ -31,35 +28,24 @@ class Community extends Component{
     componentDidMount(){
         var a = this.state;
         var b = this;
-        axios.get('/communities/all')
+        axios.get('/communities/startup', {
+            params: {
+                type: 2
+            }
+        })
             .then(function(response){
                 // this.state.famehalls.push(response.data);
                 var i = 0;
                 while(i < response.data.length){
-                    var url = "/main/community/" + i;
+                    var url = "/main/startup/" + i;
                     a.communities.push(response.data[i]);
                     var date_info = a.communities[i].date;
-                    var f_date = date_info.substring(0,10);
-                    var s_date = date_info.substring(11,19);
-                    date_info = f_date + " " +  s_date;
-                    var type = ""
-                    if(a.communities[i].type == 0){
-                        type = "자유글"
-                    }
-                    else if(a.communities[i].type == 1){
-                        type = "취업/인턴"
-                    }
-                    else{
-                        type = "창업"
-                    }
-                    var title_info = "[" + type + "] " + a.communities[i].title; 
+                    var title_info = "[창업] " + a.communities[i].title; 
                     a.datas.push(
                         <li> <Link className="famehalls" key={i} to={url}>
                                  {title_info}</Link>
                                 <br/> 
-                                <div className="date_info">
-                                {a.communities[i].writer} {date_info}
-                                </div>
+                                {a.communities[i].writer} {a.communities[i].date}
                                 </li>);
                     i = i + 1;
                 }
@@ -76,71 +62,35 @@ class Community extends Component{
             .then(function(){
 
             });
-        axios.get('/users/id', {
-            params: {
-                id: this.props.userId
-            }
-        })
-            .then(function(response){
-                b.setState(()=>{
-                    return{
-                        writer: response.data.name
-                    }
-                })
-                
+            axios.get('/users/id', {
+                params: {
+                    id: this.props.userId
+                }
             })
+                .then(function(response){
+                    b.setState(()=>{
+                        return{
+                            writer: response.data.name
+                        }
+                    })
+                    
+                })
     }
-
-    // handleSubmit(e){
-    //     e.preventDefault();
-
-    //     axios({
-    //         method: 'post',
-    //         url: '/comments/submit',
-    //         data:{
-    //             writer: this.state.writer,
-    //             comment: this.state.comment,
-    //             community_id: this.state.community_id
-    //         }
-    //     })
-    //         .then(function(response){
-    //             console.log("성공")
-    //         })
-    //         .catch(function(err){
-    //             console.log("실패")
-    //         })
-    //         .then(function(){
-
-    //         });
-    // }
-
-    // handleInputChange(event){
-    //     const target = event.target;
-    //     const value = target.value;
-    //     const name = target.name;
-
-    //     this.setState({
-    //         [name]: value
-    //     });
-    // }
-
-
 
     render(){
         let content = null;
         var recent = window.location.href;
         console.log("href: ",window.location.href)
-        const apiIndex = recent.indexOf("/community");
+        const apiIndex = recent.indexOf("/startup");
         const uri = recent.substring(apiIndex);
         console.log("substring: ",uri);
-        if(uri.length === 10){
-            content = <CommunityContent pagetitle="모아보기" pagecontent={this.state.datas} ismain={true} status={uri}></CommunityContent>
+        if(uri.length === 8){
+            content = <CommunityContent pagetitle="창업" pagecontent={this.state.datas} ismain={true} status={uri}></CommunityContent>
         }
-        else if(this.state.communities.length != 0){
-            var order = 1 * uri.substring(11);
+        else{
+            var order = 1 * uri.substring(9);
             console.log(order);
             var data = (this.state.communities[order]);
-            this.state.community_id = this.state.communities[order]._id;
             content = <CommunityContent pagetitle={data.title} pagecontent={data} ismain={false} community_id={this.state.communities[order]._id}
                                         writer={this.state.writer} status={uri}></CommunityContent>
         }
@@ -158,12 +108,12 @@ class Community extends Component{
                             <div className="content">
                                 <div className="menu-block-wrapper">
                                     <ul className="menu">
-                                        <li >
+                                        <li>
                                             <Link className="leaf" to="/main/bulletinboard">
                                                 자유게시판
                                             </Link>
                                         </li>
-                                        <li >
+                                        <li>
                                             <Link className="leaf" to="/main/employment">
                                                 취업/인턴
                                             </Link>
@@ -183,4 +133,4 @@ class Community extends Component{
         );
     }
 }
-export default Community;
+export default Startup;

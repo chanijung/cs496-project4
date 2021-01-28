@@ -11,12 +11,12 @@ import Join from './components/Join';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Projects from './components/first_tab/projects';
-import Archive from './components/second_tab/archive'
 import Famehall from './components/second_tab/famehall'
-import Helpful from './components/second_tab/helpful'
 import Community from './components/third_tab/community'
 import Bulletinboard from './components/third_tab/bulletinboard'
 import NewWrite from './components/third_tab/newWrite';
+import Employment from './components/third_tab/employment'
+import Startup from './components/third_tab/startup'
 import Gallery from './components/first_tab/gallery';
 import './LoginOrJoin.css';
 
@@ -134,8 +134,6 @@ class LoginOrJoin extends React.Component {
                         />
                         <Route exact path="/main" component={Home}/>
                         <Route path="/main/projects" component={Projects}/>
-                        <Route path="/main/archive" component={Archive}/>
-                        <Route path="/main/helpful" component={Helpful}/>
                         <Route path="/main/famehall" component={Famehall}/>
                         <Route path="/main/community" 
                                 render={routerProps => {
@@ -156,10 +154,30 @@ class LoginOrJoin extends React.Component {
                                     );
                                 }}
                         />
+                        <Route path="/main/employment" 
+                                render={routerProps => {
+                                    return(
+                                        <Employment
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
+                                    );
+                                }}
+                        />
                         <Route path="/main/newwrite" 
                                 render={routerProps => {
                                     return(
                                         <NewWrite
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
+                                    );
+                                }}
+                        />
+                        <Route path="/main/startup" 
+                                render={routerProps => {
+                                    return(
+                                        <Startup
                                          {...routerProps}
                                          userId={this.state.username}
                                          />

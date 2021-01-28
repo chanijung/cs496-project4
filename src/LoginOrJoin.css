@@ -8,6 +8,7 @@
     transform: translate(-50%, -50%);
     align-content:center;
     font-family: 'nanumsquareround_b';
+    align-items: center;
 }
 
 .login{
@@ -15,11 +16,34 @@
     text-align:center;
 }
 
-.idpwd{
+.form_wrapper{
+    /* align-items: center;
+    flex: 1;
+    /* justify-content: center; */
+    align-content:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+
+.login_form{
+    width:100%;
+    /* align-items:stretch; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+
+.id{
     font-family: 'nanumsquareround_b'; 
 }
 
-/* .idpwd_input{
-    position: absolute;
-    left: 50%;
-} */
+.pwd{
+    font-family: 'nanumsquareround_b'; 
+}
+
+.idpwd_input{
+    margin-left:10px
+}

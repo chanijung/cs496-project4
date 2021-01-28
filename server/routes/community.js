@@ -18,6 +18,24 @@ router.get('/bulletin', function(req,res){
     })
 });
 
+router.get('/employment', function(req,res){
+    console.log(req.query.type);
+    Community.find({type:req.query.type},{_id:1, writer:1, date:1, type:1, title:1, content:1}, function(err, community){
+        if(err) return res.status(500).json({error: err});
+        if(community.length === 0) return res.status(404).json({error:'community not found'});
+        res.json(community);
+    })
+});
+
+router.get('/startup', function(req,res){
+    console.log(req.query.type);
+    Community.find({type:req.query.type},{_id:1, writer:1, date:1, type:1, title:1, content:1}, function(err, community){
+        if(err) return res.status(500).json({error: err});
+        if(community.length === 0) return res.status(404).json({error:'community not found'});
+        res.json(community);
+    })
+});
+
 router.post('/newwrite', function(req,res){
     var community = new Community();
     community.writer = req.query.writer;

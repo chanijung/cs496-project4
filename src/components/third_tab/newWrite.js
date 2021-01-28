@@ -43,6 +43,15 @@ class NewWrite extends Component{
     handleSubmit(e){
         e.preventDefault();
         var a = this.state;
+        var b = this;
+        if(this.state.title == ""){
+            alert("글 제목을 작성해 주세요");
+            return;
+        }
+        else if(this.state.content == ""){
+            alert("글 내용을 작성해 주세요");
+            return;
+        }
         axios({
             method: 'post',
             url: '/communities/newwrite',
@@ -55,14 +64,15 @@ class NewWrite extends Component{
         })
         .then(function(response){
             console.log("성공")
-            this.setState(()=>{
+            b.setState(()=>{
                 return{
+                    comment:"",
+                    title:"",
                     done:true
                 }
             })
-        })
-        .catch(function(err){
-            console.log("실패")
+            alert("성공");
+
         })
         .then(function(){
 
@@ -104,7 +114,7 @@ class NewWrite extends Component{
                     <input
                         type="text"
                         name="title"
-                        value={this.title}
+                        value={this.state.title}
                         onChange={this.handleInputChange}
                         placeholder="글 제목"
                     />
@@ -122,7 +132,7 @@ class NewWrite extends Component{
                         <FormControlLabel
                         value="employment"
                         control={<Radio color="primary" />}
-                        label="인턴/취업"
+                        label="취업/인턴"
                         labelPlacement="end"
                         />
                         <FormControlLabel
@@ -137,7 +147,7 @@ class NewWrite extends Component{
                     <input
                         type="text"
                         name="content"
-                        value={this.content}
+                        value={this.state.comment}
                         onChange={this.handleInputChange}
                         placeholder="글 내용"
                     />

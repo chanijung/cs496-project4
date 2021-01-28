@@ -13,7 +13,12 @@ class Bulletinboard extends Component{
             communities: [],
             datas: [],
             pagecontent: [],
-            done: false
+            done: false,
+
+            writer: '',
+            comment: '',
+            community_id: '',
+            update: false
         }
         this.componentDidMount = this.componentDidMount.bind(this);
         // this.OnPageChange = this.OnPageChange.bind(this);
@@ -57,6 +62,19 @@ class Bulletinboard extends Component{
             .then(function(){
 
             });
+            axios.get('/users/id', {
+                params: {
+                    id: this.props.userId
+                }
+            })
+                .then(function(response){
+                    b.setState(()=>{
+                        return{
+                            writer: response.data.name
+                        }
+                    })
+                    
+                })
     }
 
     render(){
@@ -67,20 +85,21 @@ class Bulletinboard extends Component{
         const uri = recent.substring(apiIndex);
         console.log("substring: ",uri);
         if(uri.length === 14){
-            content = <CommunityContent pagetitle="자유게시판" pagecontent={this.state.datas} ismain={true}></CommunityContent>
+            content = <CommunityContent pagetitle="자유게시판" pagecontent={this.state.datas} ismain={true} status={uri}></CommunityContent>
         }
         else{
             var order = 1 * uri.substring(15);
             console.log(order);
             var data = (this.state.communities[order]);
-            content = <CommunityContent pagetitle={data.title} pagecontent={data} ismain={false}></CommunityContent>
+            content = <CommunityContent pagetitle={data.title} pagecontent={data} ismain={false} community_id={this.state.communities[order]._id}
+                                        writer={this.state.writer} status={uri}></CommunityContent>
         }
         return(
             <div className="Archive">
                 {content}
                 <aside className="sidebar">
                     <h2 className="sidebar_name">
-                        <Link to="/main/community">
+                        <Link className="sidebarname" to="/main/community">
                         커뮤니티
                         </Link>
                     </h2>
@@ -89,18 +108,18 @@ class Bulletinboard extends Component{
                             <div className="content">
                                 <div className="menu-block-wrapper">
                                     <ul className="menu">
-                                        <li className="leaf">
-                                            <Link to="/main/bulletinboard">
+                                        <li >
+                                            <Link className="leaf" to="/main/bulletinboard">
                                                 자유게시판
                                             </Link>
                                         </li>
-                                        <li className="leaf">
-                                            <Link to="/main/employment">
+                                        <li>
+                                            <Link className="leaf" to="/main/employment">
                                                 취업/인턴
                                             </Link>
                                         </li>
-                                        <li className="leaf">
-                                            <Link to="/main/startup">
+                                        <li>
+                                            <Link className="leaf" to="/main/startup">
                                                 창업
                                             </Link>
                                         </li>

@@ -8,10 +8,12 @@
 
 .sidebar_name{
     margin: 0;
+    padding-left: 10px;
     padding: 32px 60px 0 26px;
-    height: 120px;
+    height: 100px;
     font-weight: 400;
 }
+
 
 .sidebar_region{
     margin-top: 15px;
@@ -22,9 +24,10 @@
 
 .menu > li{
     text-decoration: none;
-}
-
-.menu > li > a{
+    width: 10%;
+    padding: 5px 0px 5px 5px;
+    margin-bottom: 5px;
+    border-bottom: 0.5px solid gray;
 }
 
 .site-content{
@@ -39,6 +42,76 @@
     position: relative;
 }
 
-.page-content{
-    padding-top: 38px;
+.breadcrumb{
+    width: 60%;
+    justify-content: space-between;
+}
+
+.famehalls{
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.famehalls{
+    text-decoration: none;
+    color: inherit;
+}
+
+.famehalls:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.leaf{
+    text-decoration: none;
+    color:inherit;
+    font-family: "nanumsquareround_b";
+}
+.leaf:hover{
+    text-decoration: none;
+    color:inherit;
+}
+
+.sidebarname{
+    margin-left: 2%;
+    margin-top: 1%;
+    font-family: "nanumsquareround_b";
+    text-decoration: none;
+    color:inherit;
+}
+
+.sidebarname:hover{
+    text-decoration: none;
+    color:inherit;
+}
+
+.page-title{
+    font-family: "nanumsquareround_b";
+}
+
+.contents > li{
+    width: 60%;
+    padding: 15px 0px 15px 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid gray;
+    font-size:20px;
+    font-family: "nanumsquareround_r";
+}
+
+.new_write_btn{
+    font-size: 20px;
+    border-width: medium;
+    font-family: "nanumsquareround_r";
+    float: right;
+    margin-right: 40%;
+    text-decoration: none;
+    color:inherit;
+}
+.new_write_btn:hover{
+    text-decoration: none;
+    color:inherit;
+}
+
+.date_info{
+     justify-content: space-between;
 }

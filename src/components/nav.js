@@ -23,14 +23,14 @@ const Navigation = ({removeCookie}) => {
           </div>
           <div className="Navi">
             <li className="navilist"><Link className="Navs" to="/main/projects">분반 커뮤니티</Link></li>
-            <li className="navilist"><Link className="Navs" to="/main/archive">아카이브</Link>
-              <ul className="hidden">
+            <li className="navilist"><Link className="Navs" to="/main/famehall">명예의 전당</Link>
+              {/* <ul className="hidden">
                 <Link to="/main/archive">강의자료</Link>
                 <br/>
                 <Link to="/main/helpful">팁/사이트</Link>
                 <br/>
                 <Link to="/main/famehall">명예의 전당</Link>
-              </ul>
+              </ul> */}
             </li>
             <li className="navilist"><Link className="Navs" to="/main/community">커뮤니티</Link></li>
             <li className="navilist"><Link className="Navs" color="yellow" to="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>

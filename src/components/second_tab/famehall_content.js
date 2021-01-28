@@ -32,7 +32,7 @@ class FamehallContent extends Component{
                         <div className="main-block">
                             <div className="content">
                                 {teamInfo}
-                                <div>
+                                <div className="contents">
                                     {pageContent}
                                 </div>
                             </div>

@@ -46,36 +46,33 @@ const Login = ({ setHasToken, getHasToken }) => {
     return (
         <div className="loj2">
             <h2 className="login">로그인</h2>
-
-            <form
-                onSubmit={handleSubmit}
-            >
-                <div className="idpwd">
-                    아이디
-                    <input className="idpwd_input"
-                        type="text"
-                        name="uid"
-                        value={userId}
-                        onChange={e => setUserId(e.target.value)}
-                        placeholder="id"
-                    />
-                </div>
-                <br/>
-                <div className="idpwd">
-                    비밀번호
-                    <input className="idpwd_input"
-                        type="password"
-                        name="pwd"
-                        value={userPw}
-                        onChange={e => setUserPw(e.target.value)}
-                        placeholder="pw"
-                    />
-                </div>
-                <br/>
-                <button type="submit">
-                    Login
-                </button>
-            </form>
+                <form className="login_form"
+                    onSubmit={handleSubmit}
+                >
+                    <div className="id">
+                        아이디
+                        <input className="idpwd_input"
+                            type="text"
+                            name="uid"
+                            value={userId}
+                            onChange={e => setUserId(e.target.value)}
+                        />
+                    </div>
+                    <br/>
+                    <div className="pwd">
+                        비밀번호
+                        <input className="idpwd_input"
+                            type="password"
+                            name="pwd"
+                            value={userPw}
+                            onChange={e => setUserPw(e.target.value)}
+                        />
+                    </div>
+                    <br/>
+                    <button type="submit">
+                        Login
+                    </button>
+                </form>
             <Link
                 to="/join"
             >

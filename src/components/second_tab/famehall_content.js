@@ -10,8 +10,14 @@ class FamehallContent extends Component{
     render(){
         var pageTitle = this.props.pagetitle;
         var pageContent = this.props.pagecontent;
-        // console.log(this.props.pagecontent);
-        
+        var teamName = this.props.teamname;
+        console.log(teamName.length);
+        var teamInfo = <div></div>;
+        if(teamName.length !== 1){
+            var team = "팀원: " + teamName[0] + ", " + teamName[1];
+            teamInfo = <div>{team}</div>;
+        }
+
         return(
             <div className="site-content">
                     <div className="page-header">
@@ -25,7 +31,10 @@ class FamehallContent extends Component{
                     <div className="page-content">
                         <div className="main-block">
                             <div className="content">
-                                {pageContent}
+                                {teamInfo}
+                                <div className="contents">
+                                    {pageContent}
+                                </div>
                             </div>
                         </div>
                     </div>

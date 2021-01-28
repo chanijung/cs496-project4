@@ -8,7 +8,8 @@ dotenv.config();
 //user model 관련 부분 수정!
 
 const SECRET_KEY = process.env.SECRET_KEY;
- exports.createToken = async function(req, res, next){
+console.log("secret key in users.controller: ",SECRET_KEY);
+exports.createToken = async function(req, res, next){
      try {
          const user = await User.find(req.body); //req.body: id,pw
         console.log("secret key in users.controller: ",SECRET_KEY);

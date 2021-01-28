@@ -32,7 +32,7 @@ const Login = ({ setHasToken, getHasToken }) => {
             if (response.result === 'ok') {
                 alert('로그인 성공');
                 console.log(getHasToken());
-                setHasToken(response.token);
+                setHasToken(response.token, userId);
             } else {
                 throw new Error(response.error);
             }

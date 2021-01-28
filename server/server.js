@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 // const api = require('./routes/index');
 const bodyParser = require('body-parser');
-const port = 3003;
+const port =  process.env.PORT || 3002;
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -35,6 +35,11 @@ app.use('/famehalls', famehallRouter);
 const projectRouter = require('./routes/projects');
 app.use('/projects', projectRouter);
 
+const communityRouter = require('./routes/community');
+app.use('/communities', communityRouter);
+
+const commentRouter = require('./routes/comments');
+app.use('/comments', commentRouter);
 const galleryRouter = require('./routes/gallery');
 app.use('/gallery', galleryRouter);
 

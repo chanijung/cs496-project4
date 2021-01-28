@@ -26,7 +26,6 @@ router.post('/submit', verifyToken, async function(req,res){
             const clientToken =req.cookies.user;
             const decoded = jwt.verify(clientToken, SECRET_KEY);
             if (decoded){
-                console.log("decoded");
                 const uid = decoded.uid;
                 const user = await User.findOne({uid: uid});
                 project.semester = user.semester;

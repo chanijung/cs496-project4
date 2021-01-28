@@ -11,10 +11,13 @@ import Join from './components/Join';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Projects from './components/first_tab/projects';
+import Famehall from './components/second_tab/famehall'
+import Community from './components/third_tab/community'
+import Bulletinboard from './components/third_tab/bulletinboard'
+import NewWrite from './components/third_tab/newWrite';
+import Employment from './components/third_tab/employment'
+import Startup from './components/third_tab/startup'
 import Gallery from './components/first_tab/gallery';
-import Archive from './components/second_tab/archive';
-import Famehall from './components/second_tab/famehall';
-import Helpful from './components/second_tab/helpful';
 import './LoginOrJoin.css';
 import madcamp from './components/madcamp.png'
 // import {BrowserRouter as Router,Link} from "react-router-dom";
@@ -40,17 +43,19 @@ class LoginOrJoin extends React.Component {
     //     }
     //     }, [ this.state.cookies ]);
     
-    setHasToken(token){
+    setHasToken(token, user_id){
         if(token != null){
             this.setState(() => {
                 return {userToken: Cookies.get('user'),
-                    hasToken: true};
+                    hasToken: true,
+                    username: user_id};
             });
         }
         else{
             this.setState(() => {
                 return {userToken: null,
-                    hasToken: false};
+                    hasToken: false,
+                    username: null};
             })
         }
         console.log(this.state);
@@ -114,14 +119,20 @@ class LoginOrJoin extends React.Component {
                             <Route
                                 exact path="/login"
                                 render={routerProps => {
-                                    return (
-                                        <Login
+                                    return(
+                                        <Community
                                             {...routerProps}
-                                            // loj = {this}
-                                            // setHasCookie={setHasCookie}
-                                            setHasToken = {this.setHasToken}
-                                            getHasToken = {this.getHasToken}
+                                            userId ={this.state.username}
                                         />
+                                    );
+                                }}  />
+                        <Route path="/main/bulletinboard" 
+                                render={routerProps => {
+                                    return(
+                                        <Bulletinboard
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
                                     );
                                 }}
                             />
@@ -132,15 +143,31 @@ class LoginOrJoin extends React.Component {
                             <Route
                                 path="/"
                                 render={routerProps => {
-                                    return (
-                                        <Navigation
-                                            {...routerProps}
-                                            // setHasCookie={setHasCookie}
-                                            removeCookie={
-                                                this.removeCookie
-                                                // setHasCookie();
-                                            }
-                                        />
+                                    return(
+                                        <Employment
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
+                                    );
+                                }}
+                        />
+                        <Route path="/main/newwrite" 
+                                render={routerProps => {
+                                    return(
+                                        <NewWrite
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
+                                    );
+                                }}
+                        />
+                        <Route path="/main/startup" 
+                                render={routerProps => {
+                                    return(
+                                        <Startup
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
                                     );
                                 }}
                             />

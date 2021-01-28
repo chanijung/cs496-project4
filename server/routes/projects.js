@@ -9,16 +9,13 @@ router.use(require('cookie-parser')());
 
 const jwt = require('jsonwebtoken');
 var dotenv = require('dotenv');
-// dotenv.config({path:'../../.env'});
+
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const Project = require('../models/project');
 const User = require('../models/user');
 const { verifyToken } = require('./middlewares/authorization');
-
-//Read all submissions
-// router.get('/', verifyToken, readAll);
 
 //Write submission
 router.post('/submit', verifyToken, async function(req,res){
@@ -55,15 +52,6 @@ router.post('/submit', verifyToken, async function(req,res){
     }
 })
 
-router.post('/test', verifyToken, async function(req,res){
-    try {
-        console.log("verifytoken passed");
-    } catch (err) {
-        console.log("verifytoken failed");
-        console.error(err);
-    }
-})
-
 router.get('/all', function(req, res){
     Project.find(function(err, projects){
         if(err) return res.status(500).send({error: 'database failure'});
@@ -76,23 +64,17 @@ router.get('/all', function(req, res){
 });
 
 
-// router.post('/admin/famehall', function(req, res){
-//     var famehall = new Famehall();
-//     var bodyParser = require('body-parser');
-//     famehall.gitUrl = req.body.gitUrl;
-//     famehall.team = req.body.team;
-//     famehall.projectName = req.body.projectName;
-//     famehall.year = req.body.year;
-
-//     famehall.save(function(err){
-//         if(err){
-//             console.error(err);
-//             res.json({result: 0});
-//             return;
-//         }
-//         res.json(famehall);
-//     });
-// });
+router.post('/vote', async function(req,res){
+    let gitUrl = req.body.gitUrl;
+    console.log("vote gitUrl: ", gitUrl);
+    const project = await Project.findOne({gitUrl: gitUrl});
+    console.log("project found: ", project);
+    project.votes += 1;
+    project.save();
+    res.status(201).json({
+        result:'ok'
+    });
+})
 
 
 module.exports = router;

@@ -11,9 +11,10 @@ import Join from './components/Join';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Projects from './components/first_tab/projects';
-import Archive from './components/second_tab/archive'
-import Famehall from './components/second_tab/famehall'
-import Helpful from './components/second_tab/helpful'
+import Gallery from './components/first_tab/gallery';
+import Archive from './components/second_tab/archive';
+import Famehall from './components/second_tab/famehall';
+import Helpful from './components/second_tab/helpful';
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -130,6 +131,7 @@ class LoginOrJoin extends React.Component {
                         <Route path="/main/archive" component={Archive}/>
                         <Route path="/main/helpful" component={Helpful}/>
                         <Route path="/main/famehall" component={Famehall}/>
+                        <Route path='/main/gallery' component={Gallery}/>
                 {/* </Switch> */}
                 {/* </Router> */}
                 </Router>

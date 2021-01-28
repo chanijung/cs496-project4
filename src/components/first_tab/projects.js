@@ -4,7 +4,7 @@ import { withCookies } from 'react-cookie';
 import './projects.css';
 import Cookies from 'js-cookie';
 import ProjectsContent from "./projects_content";
-import ProjectListItem from "./project_list_item";
+import ProgressBar from "./progressBar";
 
 
 class Project extends Component{
@@ -23,16 +23,21 @@ class Project extends Component{
             summaries: [],
             pagetitle: "프로젝트",
             pagecontent: [],
+    
 
             done:false,
 
-            projectCount: 0
+            projectCount: 0,
+
+            vote:[]
           };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.displayProjects = this.displayProjects.bind(this);
         this.displayAPI = this.displayAPI.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.handleVoteChange = this.handleVoteChange.bind(this);
+        this.submitVote = this.submitVote.bind(this);
     }
 
 
@@ -51,13 +56,14 @@ class Project extends Component{
 
     async handleSubmit (e) {
         e.preventDefault();
-        
+        this.setState({done: false})
         try {
             const response = await this.submitAPI({
                 team: [this.state.member1, this.state.member2],
                 projectName: this.state.projectName,
                 gitUrl: this.state.gitUrl,
-                detail: this.state.detail
+                detail: this.state.detail,
+                votes: 0
             });
 
             if (response.result === 'ok') {
@@ -69,7 +75,7 @@ class Project extends Component{
                     member2: this.state.member2,
                     projectName: this.state.projectName,
                     gitUrl: this.state.gitUrl,
-                    detail: this.state.detail
+                    detail: this.state.detail,
                 }
                 this.state.projects.push(project);
                 console.log("mem1: ", this.state.member1)
@@ -78,16 +84,21 @@ class Project extends Component{
                 // {this.state.projectName}    {this.state.member1} {this.state.member2}</Link></li>);
                 // this.state.summaries.push(<ProjectListItem projectCount={this.state.projectCount} projectName={this.state.projectName} member1={this.state.member1} member2={this.state.member2}></ProjectListItem>);
                 this.state.summaries.push(
-                    <li>
-                        <Link className="project_item" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>{this.state.projectName}</Link>
-                        <div>{this.state.member1}</div>
-                        <div>{this.state.member2}</div>
+                    <li className="project_summary">
+                        <Link className="project_name" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>{this.state.projectName}</Link>
+                        <div className="member">{this.state.member1}</div>
+                        <div className="member">{this.state.member2}</div>
+                        <input
+                            name={this.state.gitUrl}
+                            type="checkbox"
+                            onChange={this.handleVoteChange} />
+                        <ProgressBar bgcolor="#6a1b9a" completed={0} />
                     </li>
                 )
                 console.log("handlesubmit summaires: ", this.state.summaries);
                 this.state.projectCount += 1;
                 console.log("before setstate in handle submit: ", this.state.done);
-                this.setState({done: false})
+                this.setState({done: true})
                 console.log("after setstate in handle submit: ", this.state.done);
             } else {
                 alert('test post 실패');
@@ -116,6 +127,54 @@ class Project extends Component{
         });
     }
 
+    handleVoteChange(event){
+        // console.log("vote before: ", this.state.vote);
+        const target = event.target;
+        const value = target.value;
+        const gitUrl = target.name;
+        const checked = target.checked;
+        // console.log("checked: ", checked);
+        if (checked){
+            this.state.vote.push(gitUrl);   
+            console.log("pushed into vote: ", this.state.vote); 
+        }
+        else{
+            const index = this.state.vote.indexOf(gitUrl);
+            if (index > -1) {
+              this.state.vote.splice(index, 1);
+            }
+        }
+        // console.log("vote after: ", this.state.vote);
+        
+    }
+
+    async submitVote(){
+        //Send voting to server
+        var gitUrl;
+        for (var i=0; i<this.state.vote.length; i++){
+            console.log()
+            gitUrl = this.state.vote[i];
+            try{
+                const response = await fetch('/projects/vote', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({gitUrl: gitUrl})
+                }).then(response => response.json());
+
+                if (response.result === 'ok'){
+                    console.log("post vote success");
+                    this.displayProjects();
+                }
+                else{console.log("post vote fail")}
+            }
+            catch (err) {
+                console.log("post vote error")
+            }
+        }
+    }
+
     async displayProjects(){
         try {
             console.log("displayprojects start")
@@ -128,6 +187,9 @@ class Project extends Component{
                     var a = this.state;  
                     var i = 0;
                     var projectsData = response.projects;
+                    a.projects = [];
+                    a.summaries = [];
+                    a.projectCount = 0;
                     while(i < projectsData.length){
                         console.log(i,"th data: ",projectsData[i]);
                         var url = "/main/projects/" + i;
@@ -136,10 +198,15 @@ class Project extends Component{
                         // {projectsData[i].projectName}    {projectsData[i].team[0]} {projectsData[i].team[1]}</Link></li>);
                         // a.summaries.push(<ProjectListItem projectCount={i} projectName={projectsData[i].projectName} member1={projectsData[i].team[0]} member2={projectsData[i].team[1]}></ProjectListItem>)
                         this.state.summaries.push(
-                            <li>
-                                <Link className="project_item" key={i} to={"/main/projects/" + i}>{projectsData[i].projectName}</Link>
-                                <div>{projectsData[i].team[0]}</div>
-                                <div>{projectsData[i].team[1]}</div>
+                            <li project_summary>
+                                <Link className="project_name" key={i} to={"/main/projects/" + i}>{projectsData[i].projectName}</Link>
+                                <div className="member">{projectsData[i].team[0]}</div>
+                                <div className="member">{projectsData[i].team[1]}</div>
+                                <input
+                                    name={projectsData[i].gitUrl}
+                                    type="checkbox"
+                                    onChange={this.handleVoteChange} />
+                                <ProgressBar bgcolor="#6a1b9a" completed={projectsData[i].votes} />
                             </li>
                         )
                         console.log("summaries in displayprojects: ", a.summaries);
@@ -226,8 +293,9 @@ class Project extends Component{
                 </form>
             </div>
         
-        if (this.state.summaries.length === 0){
-            content = <ProjectsContent pagetitle="Loading..."></ProjectsContent>
+        // if (this.state.summaries.length === 0){
+        if (this.state.done === false){
+            content = <ProjectsContent pagetitle="프로젝트"></ProjectsContent>
         }
         else{
             const apiIndex = recent.indexOf("/projects");
@@ -237,7 +305,7 @@ class Project extends Component{
                             <div>
                                 {projectSubmission}
                             </div>
-                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries} done={true}></ProjectsContent> 
+                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries} done={true} submitVote={this.submitVote}></ProjectsContent> 
                         </div> 
                         // summaries 대신 pagecontent?
             }
@@ -280,9 +348,9 @@ class Project extends Component{
                                             {/* </Link> */}
                                         </li>
                                         <li className="third leaf">
-                                            {/* <Link to="/main/famehall"> */}
+                                            <Link to="/main/gallery">
                                                 갤러리
-                                            {/* </Link> */}
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>

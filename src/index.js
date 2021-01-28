@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import LoginOrJoin from './LoginOrJoin';
 import reportWebVitals from './reportWebVitals';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'nanumsquareround_b',
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
+    <MuiThemeProvider theme={theme}>
     <LoginOrJoin/>
+    </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

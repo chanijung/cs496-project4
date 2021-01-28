@@ -7,7 +7,8 @@ var projectSchema = new Schema({
     team: [String],
     projectName: String,
     gitUrl: String,
-    detail: String  
+    detail: String,
+    votes: Number
 })
 
 module.exports = mongoose.model('project', projectSchema);

@@ -20,8 +20,9 @@ mongoose.connect('mongodb://localhost/project4');
 
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended:true}));
+app.use(express.json());
 // app.use('/api', api);
 // app.use('/api', (req, res) => res.json({username:'bryan'}));
 
@@ -39,6 +40,8 @@ app.use('/communities', communityRouter);
 
 const commentRouter = require('./routes/comments');
 app.use('/comments', commentRouter);
+const galleryRouter = require('./routes/gallery');
+app.use('/gallery', galleryRouter);
 
 app.listen(port, ()=>{
     console.log(`express is running on ${port}`);

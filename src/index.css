@@ -11,3 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face { font-family: 'nanumsquareround_b'; src: url(./fonts/nanumsquareround_b.ttf) format('truetype'); }
+@font-face { font-family: 'nanumsquareround_r'; src: url(./fonts/nanumsquareround_r.ttf) format('truetype'); }

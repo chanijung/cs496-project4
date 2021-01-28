@@ -17,6 +17,8 @@ import Helpful from './components/second_tab/helpful'
 import Community from './components/third_tab/community'
 import Bulletinboard from './components/third_tab/bulletinboard'
 import NewWrite from './components/third_tab/newWrite';
+import Gallery from './components/first_tab/gallery';
+import './LoginOrJoin.css';
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -89,7 +91,7 @@ class LoginOrJoin extends React.Component {
     render(){
         return (
             
-            <div className="LOJ">
+            <div className="loj">
                 {/* <Observer value={this.state.userToken} didUpdate={this.setHasToken} /> */}
                 {/* <h1>Login or Join</h1> */}
                 <Router>
@@ -168,13 +170,6 @@ class LoginOrJoin extends React.Component {
                 {/* </Router> */}
                 </Router>
             </div>
-            // <div className="LOJ">
-            //     {/* <Navigation onChangePage={function(new_mode){
-            //         this.setState({mode: new_mode});
-            //         }.bind(this)}/> */}
-            //     {/* {content} */}
-            //     <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
-            // </div>
         );
         ;
     }

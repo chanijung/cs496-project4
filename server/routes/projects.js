@@ -9,16 +9,12 @@ router.use(require('cookie-parser')());
 
 const jwt = require('jsonwebtoken');
 var dotenv = require('dotenv');
-// dotenv.config({path:'../../.env'});
 dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const Project = require('../models/project');
 const User = require('../models/user');
 const { verifyToken } = require('./middlewares/authorization');
-
-//Read all submissions
-// router.get('/', verifyToken, readAll);
 
 //Write submission
 router.post('/submit', verifyToken, async function(req,res){
@@ -34,27 +30,22 @@ router.post('/submit', verifyToken, async function(req,res){
                 const user = await User.findOne({uid: uid});
                 project.semester = user.semester;
                 project.classNum = user.classNum;
+                await project.save();
             } else{
+                console.log("not decoded");
                 res.status(401).json({error: 'unauthorized in /submit'});
             }
         } catch (err) {
+            console.log("first catch")
             res.status(401).json({error: 'token expired in /submit'});
         }
-        await project.save();
+        console.log("project saved?")
         res.status(201).json({
             result:'ok',
             project: project
         });
     } catch (err) {
-        console.error(err);
-    }
-})
-
-router.post('/test', verifyToken, async function(req,res){
-    try {
-        console.log("verifytoken passed");
-    } catch (err) {
-        console.log("verifytoken failed");
+        console.log("second catch")
         console.error(err);
     }
 })
@@ -71,23 +62,17 @@ router.get('/all', function(req, res){
 });
 
 
-// router.post('/admin/famehall', function(req, res){
-//     var famehall = new Famehall();
-//     var bodyParser = require('body-parser');
-//     famehall.gitUrl = req.body.gitUrl;
-//     famehall.team = req.body.team;
-//     famehall.projectName = req.body.projectName;
-//     famehall.year = req.body.year;
-
-//     famehall.save(function(err){
-//         if(err){
-//             console.error(err);
-//             res.json({result: 0});
-//             return;
-//         }
-//         res.json(famehall);
-//     });
-// });
+router.post('/vote', async function(req,res){
+    let gitUrl = req.body.gitUrl;
+    console.log("vote gitUrl: ", gitUrl);
+    const project = await Project.findOne({gitUrl: gitUrl});
+    console.log("project found: ", project);
+    project.votes += 1;
+    project.save();
+    res.status(201).json({
+        result:'ok'
+    });
+})
 
 
 module.exports = router;

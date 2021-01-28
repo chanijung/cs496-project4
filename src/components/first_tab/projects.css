@@ -1,33 +1,78 @@
 .Projects{
     padding-top: 60px;
+    /* color:white; */
+    font-family:'nanumsquareround_r';
+    margin:0px;
+    height:fit-content;
+    padding-bottom: 0px;
 }
+
+.wrapper{
+    height:fit-content;
+}
+
+.subtitle{
+    font-family:'nanumsquareround_r';
+}
+
+.submit_form{
+    margin:1vw;
+}
+
+.item{
+
+}
+
+/* .form_item{
+    position:absolute;
+    left:0%
+} */
+
+.input_box{
+    position:relative;
+    left:10vw;
+    top:-1.5vw;
+
+}
+
+/* .submit{
+    position:relative;
+    left:50vw;
+} */
 
 .sidebar{
     display: block;
+    height: 100%;
+    margin:0px;
+    padding:0px;
+    color:black;
 }
 
 .sidebar_name{
-    color: white;
     margin: 0;
     padding: 32px 60px 0 26px;
     height: 120px;
     font-weight: 400;
+    
+    color:black;
 }
 
-.sidebar_region{
+/* .sidebar_region{
     margin-top: 15px;
     margin-bottom: 100px;
     padding-right: 60px;
     padding-left: 10px;
-}
+} */
 
 .menu > li{
     text-decoration: none;
 }
 
-.menu > li > a{
+
+
+/* .menu > li > a{
     color: white;
-}
+} */
 
 .site-content{
     display: block;
@@ -37,12 +82,11 @@
 
 .page-header{
     padding-top: 38px;
-    
     height: 120px;
     position: relative;
     z-index: 1;
 }
 
-/* .page-title{
-    
-} */
+
+
+

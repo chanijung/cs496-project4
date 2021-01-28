@@ -55,6 +55,7 @@ class Project extends Component{
     };
 
     async handleSubmit (e) {
+        console.log("handlesubmit")
         e.preventDefault();
         this.setState({done: false})
         try {
@@ -247,50 +248,69 @@ class Project extends Component{
 
         const projectSubmission = 
             <div className="main-block">
-                <div className="content">
+                <div className="subtitle">
+                프로젝트 제출하기
                 </div>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        name="member1"
-                        // value={this.member1}
-                        onChange={(e)=>{this.state.member1 = e.target.value}}
-                        placeholder="Member 1"
-                    />
-                    <input
-                        type="text"
-                        name="member2"
-                        // value={this.member2}
-                        onChange={(e)=>{this.state.member2 = e.target.value}}
-                        placeholder="Member 2"
-                    />
-                    <input
-                        type="text"
-                        name="projectName"
-                        // value={this.projectName}
-                        onChange={(e)=>{this.state.projectName = e.target.value}}
-                        placeholder="Project Name"
-                    />
-                    <input
-                        type="text"
-                        name="gitUrl"
-                        // value={this.gitUrl}
-                        onChange={(e)=>{this.state.gitUrl = e.target.value}}
-                        placeholder="Github URL"
-                    />
-                    <input
-                        type="text"
-                        name="detail"
-                        // value={this.detail}
-                        onChange={(e)=>{this.state.detail = e.target.value}}
-                        placeholder="Detail Explanations"
-                    />
-                    <button
-                        type="submit"
-                    >
-                        제출
-                    </button>
+                <form className="submit_form" onSubmit={this.handleSubmit}>
+                        <div className="item">
+                        팀원
+                            <div className="input_box">
+                                <input
+                                    type="text"
+                                    name="member1"
+                                    // value={this.member1}
+                                    onChange={(e)=>{this.state.member1 = e.target.value}}
+                                />
+                                <input
+                                    type="text"
+                                    name="member2"
+                                    // value={this.member2}
+                                    onChange={(e)=>{this.state.member2 = e.target.value}}
+                                />
+                            </div>
+                        </div>
+                        프로젝트 이름
+                        <div className="input_box">
+                            <input
+                                style={{width:"40%"}}
+                                type="text"
+                                name="projectName"
+                                // value={this.projectName}
+                                onChange={(e)=>{this.state.projectName = e.target.value}}
+                            />
+                        </div>
+                        Github 주소
+                        <div className="input_box">
+                            <input
+                                style={{width:"40%"}}
+                                type="text"
+                                name="gitUrl"
+                                // value={this.gitUrl}
+                                onChange={(e)=>{this.state.gitUrl = e.target.value}}
+                            />
+                        </div>
+                        설명
+                        <div className="input_box">
+                            <input
+                                style={{width:"40%"}}
+                                type="text"
+                                name="detail"
+                                // value={this.detail}
+                                onChange={(e)=>{this.state.detail = e.target.value}}
+                            />
+                        </div>
+                        {/* <textarea className="input_box"
+                            name="detail"
+                            onChange={(e)=>{this.state.detail = e.target.value}}
+                            rows={5}
+                            cols={5}
+                        /> */}
+                        <button className="submit" type="submit">
+                            제출
+                        </button>
                 </form>
+                
+
             </div>
         
         // if (this.state.summaries.length === 0){
@@ -302,10 +322,10 @@ class Project extends Component{
             const uri = recent.substring(apiIndex);
             if(uri.length === 9){
                 content = <div>
-                            <div>
+                            {/* <div>
                                 {projectSubmission}
-                            </div>
-                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries} done={true} submitVote={this.submitVote}></ProjectsContent> 
+                            </div> */}
+                            <ProjectsContent pagetitle="프로젝트" pagecontent={this.state.summaries} done={true} submitVote={this.submitVote} projectSubmission={projectSubmission} vote_submit={true}></ProjectsContent> 
                         </div> 
                         // summaries 대신 pagecontent?
             }
@@ -318,46 +338,36 @@ class Project extends Component{
                                             member2={(this.state.projects[order]).team[1]}
                                             gitUrl={<Link href="" onClick={() => window.open(url, '_blank')}>{(this.state.projects[order]).gitUrl}</Link>}
                                             detail={(this.state.projects[order]).detail} 
-                                            done={true}></ProjectsContent>
+                                            done={true}
+                                            vote_submit={false}></ProjectsContent>
             }
         }
 
         return(
-            <div className="Projects">
-                <div>
-                {content}
-                </div>
-                
-                <aside className="sidebar">
-                    <h2 className="sidebar_name">
-                        분반 커뮤니티
-                    </h2>
-                    <div className="sidebar_region">
-                        <div className="block-menu-block">
-                            <div className="content">
-                                <div className="menu-block-wrapper">
-                                    <ul className="menu">
-                                        <li className="firstleaf">
-                                            <Link to="/main/projects">
-                                                프로젝트 제출
-                                            </Link>
-                                        </li>
-                                        <li className="second leaf">
-                                            {/* <Link to="/main/helpful"> */}
-                                                자리 정하기
-                                            {/* </Link> */}
-                                        </li>
-                                        <li className="third leaf">
-                                            <Link to="/main/gallery">
-                                                갤러리
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+            <div className="wrapper">
+                <div className="Projects">
+                    <div>
+                    {content}
                     </div>
-                </aside>
+                    
+                    <aside className="sidebar">
+                        <h2 className="sidebar_name">
+                            분반 커뮤니티
+                        </h2>
+                            <ul className="menu">
+                                <li className="leaf">
+                                    <Link to="/main/projects">
+                                        프로젝트 제출
+                                    </Link>
+                                </li>
+                                <li className="leaf">
+                                    <Link to="/main/gallery">
+                                        갤러리
+                                    </Link>
+                                </li>
+                            </ul>
+                    </aside>
+            </div>
             </div>
         );
     }

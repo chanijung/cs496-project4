@@ -18,6 +18,8 @@ class ProjectsContent extends Component{
         var gitUrl = this.props.gitUrl;
         var detail = this.props.detail;
         var submitVote = this.props.submitVote;
+        var projectSubmission = this.props.projectSubmission;
+        var vote_submit = this.props.vote_submit;
 
         console.log("pageContent in projects_content.js: ", pageContent);
         
@@ -29,9 +31,10 @@ class ProjectsContent extends Component{
                         </h1>
                     </div>
                     <div className="page-content">
-                        <button className="vote_submit" onClick={submitVote}>투표</button>
                         <div className="main-block">
                             <div className="pageContent">
+                                {projectSubmission}
+                                {vote_submit? <button className="vote_submit" onClick={submitVote}>투표</button> : <div></div>}
                                 {pageContent}
                             </div>
                             <div className="member1">

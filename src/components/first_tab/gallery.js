@@ -17,6 +17,13 @@ const styles = {
     width: "100%"
   };
 
+const galleryStyle = {
+    border:"2px",
+    width:"300px",
+    height:"auto",
+    margin:"10px"
+}
+
 const ERROR = {
     NOT_SUPPORTED_EXTENSION: 'NOT_SUPPORTED_EXTENSION',
     FILESIZE_TOO_LARGE: 'FILESIZE_TOO_LARGE'
@@ -303,7 +310,7 @@ class Gallery extends Component{
         return this.state.gallery.map((picture) => {
             return (
                 <div className="uploadPictureContainer">
-                <img src={picture.dataUrl} className="uploadPicture" alt="gallery"/>
+                <img src={picture.dataUrl} className="uploadPicture" alt="gallery" width="300" style={galleryStyle}/>
                 </div>
                 );
         });

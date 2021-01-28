@@ -15,6 +15,7 @@ import Gallery from './components/first_tab/gallery';
 import Archive from './components/second_tab/archive';
 import Famehall from './components/second_tab/famehall';
 import Helpful from './components/second_tab/helpful';
+import './LoginOrJoin.css';
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -84,65 +85,52 @@ class LoginOrJoin extends React.Component {
     
     render(){
         return (
-            
-            <div className="LOJ">
-                {/* <Observer value={this.state.userToken} didUpdate={this.setHasToken} /> */}
-                {/* <h1>Login or Join</h1> */}
-                <Router>
-                {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/main" />}
-                {/* <Router> */}
-                {/* <Switch> */}
-                    {/* {!this.hasToken ? <Redirect to="/login" /> : <Redirect to="/app" />} */}
-                        <Route
-                            exact path="/login"
-                            render={routerProps => {
-                                return (
-                                    <Login
-                                        {...routerProps}
-                                        // loj = {this}
-                                        // setHasCookie={setHasCookie}
-                                        setHasToken = {this.setHasToken}
-                                        getHasToken = {this.getHasToken}
-                                    />
-                                );
-                            }}
-                        />
-                        <Route
-                            exact path="/join"
-                            component={Join}
-                        />
-                        <Route
-                            path="/main"
-                            render={routerProps => {
-                                return (
-                                    <Navigation
-                                        {...routerProps}
-                                        // setHasCookie={setHasCookie}
-                                        removeCookie={
-                                            this.removeCookie
-                                            // setHasCookie();
-                                        }
-                                    />
-                                );
-                            }}
-                        />
-                        <Route exact path="/main" component={Home}/>
-                        <Route path="/main/projects" component={Projects}/>
-                        <Route path="/main/archive" component={Archive}/>
-                        <Route path="/main/helpful" component={Helpful}/>
-                        <Route path="/main/famehall" component={Famehall}/>
-                        <Route path='/main/gallery' component={Gallery}/>
-                {/* </Switch> */}
-                {/* </Router> */}
-                </Router>
+            <div className="wrapper">
+                <div className="loj">
+                    <Router>
+                    {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/main" />}
+                            <Route
+                                exact path="/login"
+                                render={routerProps => {
+                                    return (
+                                        <Login
+                                            {...routerProps}
+                                            // loj = {this}
+                                            // setHasCookie={setHasCookie}
+                                            setHasToken = {this.setHasToken}
+                                            getHasToken = {this.getHasToken}
+                                        />
+                                    );
+                                }}
+                            />
+                            <Route
+                                exact path="/join"
+                                component={Join}
+                            />
+                            <Route
+                                path="/main"
+                                render={routerProps => {
+                                    return (
+                                        <Navigation
+                                            {...routerProps}
+                                            // setHasCookie={setHasCookie}
+                                            removeCookie={
+                                                this.removeCookie
+                                                // setHasCookie();
+                                            }
+                                        />
+                                    );
+                                }}
+                            />
+                            <Route exact path="/main" component={Home}/>
+                            <Route path="/main/projects" component={Projects}/>
+                            <Route path="/main/archive" component={Archive}/>
+                            <Route path="/main/helpful" component={Helpful}/>
+                            <Route path="/main/famehall" component={Famehall}/>
+                            <Route path='/main/gallery' component={Gallery}/>
+                    </Router>
+                </div>
             </div>
-            // <div className="LOJ">
-            //     {/* <Navigation onChangePage={function(new_mode){
-            //         this.setState({mode: new_mode});
-            //         }.bind(this)}/> */}
-            //     {/* {content} */}
-            //     <Observer value={this.state.userToken} didUpdate={this.setHasToken} />
-            // </div>
         );
         ;
     }

@@ -3,6 +3,8 @@ import {BrowserRouter as Router,Link} from "react-router-dom";
 import './nav.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import icon from './icon.PNG';
+import madcamp from './madcamp.png'
+
 import LoginOrJoin from '../LoginOrJoin';
 
 const Navigation = ({removeCookie}) => {
@@ -11,9 +13,9 @@ const Navigation = ({removeCookie}) => {
       <div className="Navigation">
         <div className="Nav">
           <div>
-            <img 
+            <img
                 className="Icon"
-                src={icon}
+                src={madcamp}
                 width='40'
                 height='40'
                 />

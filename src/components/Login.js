@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import {BrowserRouter as Router} from "react-router-dom";
 import { Route, Switch, Redirect } from "react-router-dom";
 import LoginOrJoin from '../LoginOrJoin';
+import '../LoginOrJoin.css';
+
 const Login = ({ setHasToken, getHasToken }) => {
 
     const [ userId, setUserId ] = useState('');
@@ -42,50 +44,35 @@ const Login = ({ setHasToken, getHasToken }) => {
         }
     };
     return (
-        <div>
-            <h2>Login</h2>
-            {/* <Router>
-                {!getHasToken() ? <Redirect to="/login" /> : <Redirect to="/" />}
-                <Switch>
-                    <Route
-                        exact path="/"
-                        component={LoginOrJoin}
-                        // render={routerProps => {
-                        //     return (
-                        //         <App
-                        //             {...routerProps}
-                        //             // setHasCookie={setHasCookie}
-                        //             // removeCookie={() => {
-                        //             //     removeCookie('user');
-                        //             //     setHasCookie(false);
-                        //             // }}
-                        //         />
-                        //     );
-                        // }}
-                    />
-                </Switch>
-            </Router> */}
+        <div className="loj2">
+            <h2 className="login">로그인</h2>
 
             <form
                 onSubmit={handleSubmit}
             >
-                <input
-                    type="text"
-                    name="uid"
-                    value={userId}
-                    onChange={e => setUserId(e.target.value)}
-                    placeholder="id"
-                />
-                <input
-                    type="password"
-                    name="pwd"
-                    value={userPw}
-                    onChange={e => setUserPw(e.target.value)}
-                    placeholder="pw"
-                />
-                <button
-                    type="submit"
-                >
+                <div className="idpwd">
+                    아이디
+                    <input className="idpwd_input"
+                        type="text"
+                        name="uid"
+                        value={userId}
+                        onChange={e => setUserId(e.target.value)}
+                        placeholder="id"
+                    />
+                </div>
+                <br/>
+                <div className="idpwd">
+                    비밀번호
+                    <input className="idpwd_input"
+                        type="password"
+                        name="pwd"
+                        value={userPw}
+                        onChange={e => setUserPw(e.target.value)}
+                        placeholder="pw"
+                    />
+                </div>
+                <br/>
+                <button type="submit">
                     Login
                 </button>
             </form>

@@ -40,12 +40,16 @@ class Bulletinboard extends Component{
                     var url = "/main/bulletinboard/" + i;
                     a.communities.push(response.data[i]);
                     var date_info = a.communities[i].date;
+                    var f_date = date_info.substring(0,10);
+                    var s_date = date_info.substring(11,19);
+                    date_info = f_date + " " +  s_date;
                     var title_info = "[자유글] " + a.communities[i].title; 
                     a.datas.push(
                         <li> <Link className="famehalls" key={i} to={url}>
                                  {title_info}</Link>
-                                <br/> 
-                                {a.communities[i].writer} {a.communities[i].date}
+                                 <div className="date_info">
+                                    <div className="date_com"> {date_info}</div>
+                                </div>
                                 </li>);
                     i = i + 1;
                 }

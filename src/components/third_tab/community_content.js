@@ -38,14 +38,17 @@ class CommunityContent extends Component{
                     a.comments = []
                     var i = 0;
                     while(i < response.data.length){
+                        var date_info = response.data[i].date;
+                        var f_date = date_info.substring(0,10);
+                        var s_date = date_info.substring(11,19);
+                        date_info = "[" + f_date + " " +  s_date + "]";
                         a.comments.push(
                             <li>
                                 <div>
-                                {response.data[i].writer}   {response.data[i].date}
+                                <div className="writer_info">{response.data[i].writer}</div>   <div className="date_info">{date_info}</div>
                                 <br/>
                                 {response.data[i].content}
                                 </div>
-                                <br/>
                             </li>
                         )
                         console.log("a.comments: ", a.comments)
@@ -181,17 +184,18 @@ class CommunityContent extends Component{
                             <div>{info2}</div>
                         </u1>
                     </div>
-                    <div className="page-content">
-                        <div className="main-block">
-                            <div className="content">
-                                <div>
+                    <div className="community-page-content">
+                        <div className="community-main-block">
+                            <div className="community_content">
+                                <pre>
                                     {content}
-                                </div>
+                                </pre>
                             </div>
                         </div>
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <input
+                            className="comment_input"
                             type="text"
                             name="comment"
                             value={this.state.comment}

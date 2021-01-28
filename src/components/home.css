@@ -1,8 +1,14 @@
 .Home{
+    height: 100%;
     text-align: initial;
-    padding-top: 50px;
+    padding-top: 55px;
+    background-color: white;
 }
 
 .HomeFirst{
     text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    
 }

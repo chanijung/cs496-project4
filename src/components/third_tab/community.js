@@ -41,7 +41,7 @@ class Community extends Component{
                     var date_info = a.communities[i].date;
                     var f_date = date_info.substring(0,10);
                     var s_date = date_info.substring(11,19);
-                    date_info = f_date + " " +  s_date;
+                    date_info = "[" + f_date + " " +  s_date + "]";
                     var type = ""
                     if(a.communities[i].type == 0){
                         type = "자유글"
@@ -56,9 +56,9 @@ class Community extends Component{
                     a.datas.push(
                         <li> <Link className="famehalls" key={i} to={url}>
                                  {title_info}</Link>
-                                <br/> 
+                                
                                 <div className="date_info">
-                                {a.communities[i].writer} {date_info}
+                                    <div className="date_com"> {date_info}</div>
                                 </div>
                                 </li>);
                     i = i + 1;

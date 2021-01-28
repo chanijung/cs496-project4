@@ -1,4 +1,25 @@
 .NewWrite{
-    padding-top: 60px;
+    padding-top: 90px;
     padding-left: 20px;
+    /* display: flex; */
+    display: flex;
+    justify-content: center;
+}
+
+.newwrite_main{
+    width: 100%;
+    font-size: 27px;
+    font-family: "nanumsquareround_b";
+    text-align: center;
+    /* justify-content: center; */
+}
+
+.newwrite_title{
+    margin-top: 20px;
+    width: 100%;
+    /* justify-content: center; */
+}
+
+.newwrite_submit{
+    width: 100%;
 }

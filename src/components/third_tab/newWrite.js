@@ -107,11 +107,12 @@ class NewWrite extends Component{
     render(){
         return(
             <div className="NewWrite">
-                <div> 새글쓰기</div>
-                
+                <div>
+                <div className="newwrite_main"> 글 쓰기</div>
                 <form
                     onSubmit={this.handleSubmit}>
                     <input
+                        className="newwrite_title"
                         type="text"
                         name="title"
                         value={this.state.title}
@@ -119,6 +120,8 @@ class NewWrite extends Component{
                         placeholder="글 제목"
                     />
                     <br/>
+                    <br/>
+                    <div className="newwirte_cate">
                     <FormControl component="fieldset">
                     <FormLabel component="legend">카테고리</FormLabel>
                     <RadioGroup row aria-label="position" name="position" defaultValue="free"
@@ -143,21 +146,26 @@ class NewWrite extends Component{
                         />
                         </RadioGroup>
                     </FormControl>
-                    <br/>
-                    <input
-                        type="text"
+                    </div>
+                    
+                    <textarea
+                        className="newwrie_content"
                         name="content"
                         value={this.state.comment}
                         onChange={this.handleInputChange}
                         placeholder="글 내용"
+                        cols={105}
+                        rows={23}
                     />
                     <br />
                     <button
+                        className="newwrite_submit"
                         type="submit"
                         >
                             작성하기
                         </button>
                 </form>
+                </div>
             </div>
         );
     }

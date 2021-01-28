@@ -8,7 +8,29 @@ import madcamp from './madcamp.png'
 import LoginOrJoin from '../LoginOrJoin';
 
 const Navigation = ({removeCookie}) => {
-  
+
+  //현재 url 받아서 login이면 버튼없이 return
+  var recent = window.location.href;
+  var indexLogin = recent.indexOf('/login');
+  var indexJoin = recent.indexOf('/join');
+  if(indexLogin != -1 || indexJoin!=-1){
+    return(
+    <div className="Navigation">
+        <div className="Nav">
+          <div>
+            <img
+                className="Icon"
+                src={madcamp}
+                width='40'
+                height='40'
+                />
+            <Link className="Nav_title" to="/main">몰입캠프</Link>
+          </div>
+        </div>
+    </div>
+    )
+  }
+  else{
     return(
       <div className="Navigation">
         <div className="Nav">
@@ -41,6 +63,7 @@ const Navigation = ({removeCookie}) => {
     </div>
     );
   }
+}
 //I'm goedo kid.
 
 export default Navigation;

@@ -37,58 +37,60 @@ const Join = () => {
     return (
         <div>
         {!isJoinSuccess && (
-            <>
-            <h2>Join</h2>
-            <form
-            onSubmit={handleSubmit}
-            >
-            <input
-                type="text"
-                name="semester"
-                value={semester}
-                onChange={e => setSemester(e.target.value)}
-                placeholder="semester"
-            />
-            <input
-                type="text"
-                name="classNum"
-                value={classNum}
-                onChange={e => setClassNum(e.target.value)}
-                placeholder="class"
-            />
-            <input
-                type="text"
-                name="uid"
-                value={userId}
-                onChange={e => setUserId(e.target.value)}
-                placeholder="id"
-            />
-            <input
-                type="password"
-                name="pwd"
-                value={userPw}
-                onChange={e => setUserPw(e.target.value)}
-                placeholder="pw"
-            />
-            <input
-                type="name"
-                name="name"
-                value={userName}
-                onChange={e => setUserName(e.target.value)}
-                placeholder="name"
-            />
-            <button
-                type="submit"
-            >
-            제출
-            </button>
-            </form>
-            </>
+            <div className="loj3">
+                <h2 className="login">회원가입</h2>
+                <form className="login-form"
+                    onSubmit={handleSubmit}
+                >
+                    <input className="idpwd_input"
+                        type="text"
+                        name="semester"
+                        value={semester}
+                        onChange={e => setSemester(e.target.value)}
+                        placeholder="학기(ex.2019s,2020w)"
+                    />
+                    <input className="idpwd_input"
+                        type="text"
+                        name="classNum"
+                        value={classNum}
+                        onChange={e => setClassNum(e.target.value)}
+                        placeholder="분반"
+                    />
+                    <input className="idpwd_input"
+                        type="text"
+                        name="uid"
+                        value={userId}
+                        onChange={e => setUserId(e.target.value)}
+                        placeholder="아이디"
+                    />
+                    <input className="idpwd_input"
+                        type="password"
+                        name="pwd"
+                        value={userPw}
+                        onChange={e => setUserPw(e.target.value)}
+                        placeholder="비밀번호"
+                    />
+                    <input className="idpwd_input"
+                        type="name"
+                        name="name"
+                        value={userName}
+                        onChange={e => setUserName(e.target.value)}
+                        placeholder="이름"
+                    />
+                    <button className="login_button"
+                        type="submit"
+                    >
+                    제출
+                    </button>
+                </form>
+            </div>
         )}
         {isJoinSuccess && (
-            <div>
+            <div className="after-join">
             <p>회원가입을 축하합니다!</p>
-            <Link to="/login">로그인</Link>
+            <div className="login-after-join">
+                <Link to="/login">로그인</Link>
+            </div>
             </div>
         )}
         </div>

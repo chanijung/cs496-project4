@@ -16,6 +16,8 @@ import Archive from './components/second_tab/archive';
 import Famehall from './components/second_tab/famehall';
 import Helpful from './components/second_tab/helpful';
 import './LoginOrJoin.css';
+import madcamp from './components/madcamp.png'
+// import {BrowserRouter as Router,Link} from "react-router-dom";
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -85,7 +87,27 @@ class LoginOrJoin extends React.Component {
     
     render(){
         return (
-            <div className="wrapper">
+            <div>
+            
+              {/* <div className="Navi">
+                <li className="navilist"><Link className="Navs" to="/main/projects">분반 커뮤니티</Link></li>
+                <li className="navilist"><Link className="Navs" to="/main/archive">아카이브</Link>
+                  <ul className="hidden">
+                    <Link to="/main/archive">강의자료</Link>
+                    <br/>
+                    <Link to="/main/helpful">팁/사이트</Link>
+                    <br/>
+                    <Link to="/main/famehall">명예의 전당</Link>
+                  </ul>
+                </li>
+                <li className="navilist"><Link className="Navs" to="/main/third">세번째</Link></li>
+                <li className="navilist"><Link className="Navs" color="yellow" to="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>
+                <li className="navilist"><Link className="Navs" href="" onClick={removeCookie}>로그아웃</Link></li>
+    
+              </div> */}
+            
+        
+        
                 <div className="loj">
                     <Router>
                     {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/main" />}
@@ -108,7 +130,7 @@ class LoginOrJoin extends React.Component {
                                 component={Join}
                             />
                             <Route
-                                path="/main"
+                                path="/"
                                 render={routerProps => {
                                     return (
                                         <Navigation
@@ -130,7 +152,7 @@ class LoginOrJoin extends React.Component {
                             <Route path='/main/gallery' component={Gallery}/>
                     </Router>
                 </div>
-            </div>
+                </div>
         );
         ;
     }

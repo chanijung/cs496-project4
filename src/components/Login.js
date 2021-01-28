@@ -47,40 +47,38 @@ const Login = ({ setHasToken, getHasToken }) => {
         <div className="loj2">
             <h2 className="login">로그인</h2>
 
-            <form
+            <form className="login-form"
                 onSubmit={handleSubmit}
             >
                 <div className="idpwd">
-                    아이디
                     <input className="idpwd_input"
                         type="text"
                         name="uid"
                         value={userId}
                         onChange={e => setUserId(e.target.value)}
-                        placeholder="id"
+                        placeholder="아이디"
                     />
                 </div>
                 <br/>
                 <div className="idpwd">
-                    비밀번호
                     <input className="idpwd_input"
                         type="password"
                         name="pwd"
                         value={userPw}
                         onChange={e => setUserPw(e.target.value)}
-                        placeholder="pw"
+                        placeholder="비밀번호"
                     />
                 </div>
                 <br/>
-                <button type="submit">
-                    Login
+                <button className="login_button" type="submit">
+                    로그인
                 </button>
             </form>
-            <Link
-                to="/join"
-            >
-                회원가입
-            </Link>
+            <div className="join-button">
+                <Link to="/join">
+                    회원가입
+                </Link>
+            </div>
         </div>
     );
 };

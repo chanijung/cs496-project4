@@ -11,8 +11,16 @@
     height:fit-content;
 }
 
-.subtitle{
+.submit{
     font-family:'nanumsquareround_r';
+    font-size: 18px;
+    padding:9px;
+    border: black 1px solid;
+    border-radius: 5%;
+    width:fit-content;
+    background-color:lightgray;
+    float:right;
+    margin-right:45%;
 }
 
 .submit_form{

@@ -87,8 +87,8 @@ class Project extends Component{
                 this.state.summaries.push(
                     <li className="project_summary">
                         <Link className="project_name" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>{this.state.projectName}</Link>
-                        <div className="member">{this.state.member1}</div>
-                        <div className="member">{this.state.member2}</div>
+                        <div className="member">{this.state.member1}, {this.state.member2}</div>
+                        {/* <div className="member">{this.state.member2}</div> */}
                         <input
                             name={this.state.gitUrl}
                             type="checkbox"
@@ -201,8 +201,8 @@ class Project extends Component{
                         this.state.summaries.push(
                             <li project_summary>
                                 <Link className="project_name" key={i} to={"/main/projects/" + i}>{projectsData[i].projectName}</Link>
-                                <div className="member">{projectsData[i].team[0]}</div>
-                                <div className="member">{projectsData[i].team[1]}</div>
+                                <div className="member">{projectsData[i].team[0]}, {projectsData[i].team[1]}</div>
+                                {/* <div className="member">{projectsData[i].team[1]}</div> */}
                                 <input
                                     name={projectsData[i].gitUrl}
                                     type="checkbox"
@@ -248,20 +248,21 @@ class Project extends Component{
 
         const projectSubmission = 
             <div className="main-block">
-                <div className="subtitle">
-                프로젝트 제출하기
-                </div>
+                {/* <div className="subtitle"> */}
+                {/* </div> */}
                 <form className="submit_form" onSubmit={this.handleSubmit}>
                         <div className="item">
                         팀원
                             <div className="input_box">
                                 <input
+                                    style={{width:"20%"}}
                                     type="text"
                                     name="member1"
                                     // value={this.member1}
                                     onChange={(e)=>{this.state.member1 = e.target.value}}
                                 />
                                 <input
+                                    style={{width:"20%"}}
                                     type="text"
                                     name="member2"
                                     // value={this.member2}
@@ -306,7 +307,7 @@ class Project extends Component{
                             cols={5}
                         /> */}
                         <button className="submit" type="submit">
-                            제출
+                            프로젝트 제출하기
                         </button>
                 </form>
                 
@@ -357,7 +358,7 @@ class Project extends Component{
                             <ul className="menu">
                                 <li className="leaf">
                                     <Link to="/main/projects">
-                                        프로젝트 제출
+                                        프로젝트
                                     </Link>
                                 </li>
                                 <li className="leaf">

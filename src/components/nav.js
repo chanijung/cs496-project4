@@ -20,7 +20,7 @@ const Navigation = ({removeCookie}) => {
             <Link className="Nav_title" to="/main">몰입캠프</Link>
           </div>
           <div className="Navi">
-            <li className="navilist"><Link className="Navs" to="/main/first">분반 커뮤니티</Link></li>
+            <li className="navilist"><Link className="Navs" to="/main/projects">분반 커뮤니티</Link></li>
             <li className="navilist"><Link className="Navs" to="/main/archive">아카이브</Link>
               <ul className="hidden">
                 <Link to="/main/archive">강의자료</Link>
@@ -30,7 +30,7 @@ const Navigation = ({removeCookie}) => {
                 <Link to="/main/famehall">명예의 전당</Link>
               </ul>
             </li>
-            <li className="navilist"><Link className="Navs" to="/main/third">세번째</Link></li>
+            <li className="navilist"><Link className="Navs" to="/main/community">커뮤니티</Link></li>
             <li className="navilist"><Link className="Navs" color="yellow" to="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>
             <li className="navilist"><Link className="Navs" href="" onClick={removeCookie}>로그아웃</Link></li>
 

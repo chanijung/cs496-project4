@@ -1,20 +1,18 @@
 import React, { Component, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import {BrowserRouter as Router,Link} from "react-router-dom";
-import FamehallContent from "./famehall_content"
+import CommunityContent from "./community_content"
 import Observer from "../useEffect"
 import axios from 'axios';
-import './famehall.css'
+import '../second_tab/famehall.css'
 
-var famehalls = [];
-
-class Famehall extends Component{
+class Bulletinboard extends Component{
     constructor(props){
         super(props);
         this.state = {
-            famehalls:[],
+            communities: [],
             datas: [],
-            pagetitle: "명예의 전당",
+            pagecontent: [],
             done: false
         }
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -25,22 +23,25 @@ class Famehall extends Component{
     componentDidMount(){
         var a = this.state;
         var b = this;
-        axios.get('/famehalls/all')
+        axios.get('/communities/bulletin', {
+            params: {
+                type: 0
+            }
+        })
             .then(function(response){
                 // this.state.famehalls.push(response.data);
                 var i = 0;
                 while(i < response.data.length){
-                    var url = "/main/famehall/" + i;
-                    a.famehalls.push(response.data[i]);
-                    var week_info = a.famehalls[i].year;
-                    if(week_info[4] == "w"){
-                        week_info = week_info.substring(0,4) + "년 겨울학기 " + week_info.substring(6) + "주차"
-                    }
-                    else{
-                        week_info = week_info.substring(0,4) + "년 여름학기 " + week_info.substring(6) + "주차"
-                    }
-                    a.datas.push(<li> <Link className="famehalls" key={i} to={url}>
-                    {week_info}    {a.famehalls[i].projectName}</Link></li>);
+                    var url = "/main/bulletinboard/" + i;
+                    a.communities.push(response.data[i]);
+                    var date_info = a.communities[i].date;
+                    var title_info = "[자유글] " + a.communities[i].title; 
+                    a.datas.push(
+                        <li> <Link className="famehalls" key={i} to={url}>
+                                 {title_info}</Link>
+                                <br/> 
+                                {a.communities[i].writer} {a.communities[i].date}
+                                </li>);
                     i = i + 1;
                 }
                 b.setState(()=>{
@@ -48,6 +49,7 @@ class Famehall extends Component{
                         done:true
                     }
                 })
+                // console.log(a.pagecontent);
             })
             .catch(function(err){
                 console.log(err);
@@ -61,45 +63,45 @@ class Famehall extends Component{
         let content = null;
         var recent = window.location.href;
         console.log("href: ",window.location.href)
-        const apiIndex = recent.indexOf("/famehall");
+        const apiIndex = recent.indexOf("/bulletinboard");
         const uri = recent.substring(apiIndex);
         console.log("substring: ",uri);
-        if(uri.length === 9){
-            content = <FamehallContent pagetitle="명예의 전당" pagecontent={this.state.datas} teamname={['왜안되지']}></FamehallContent>
+        if(uri.length === 14){
+            content = <CommunityContent pagetitle="자유게시판" pagecontent={this.state.datas} ismain={true}></CommunityContent>
         }
         else{
-            var order = 1 * uri.substring(10);
+            var order = 1 * uri.substring(15);
             console.log(order);
-            var url = ((this.state.famehalls[order]).gitUrl);
-            content = <FamehallContent pagetitle={(this.state.famehalls[order]).projectName} 
-                            pagecontent={<Link href="" onClick={()=>window.open(url, '_blank')}>{this.state.famehalls[order].gitUrl}</Link>}
-                            teamname={(this.state.famehalls[order]).team}></FamehallContent>
+            var data = (this.state.communities[order]);
+            content = <CommunityContent pagetitle={data.title} pagecontent={data} ismain={false}></CommunityContent>
         }
         return(
             <div className="Archive">
                 {content}
                 <aside className="sidebar">
                     <h2 className="sidebar_name">
-                        아카이브
+                        <Link to="/main/community">
+                        커뮤니티
+                        </Link>
                     </h2>
                     <div className="sidebar_region">
                         <div className="block-menu-block">
                             <div className="content">
                                 <div className="menu-block-wrapper">
                                     <ul className="menu">
-                                        <li className="firstleaf">
-                                            <Link to="/main/archive">
-                                                강의 자료
+                                        <li className="leaf">
+                                            <Link to="/main/bulletinboard">
+                                                자유게시판
                                             </Link>
                                         </li>
-                                        <li className="second leaf">
-                                            <Link to="/main/helpful">
-                                                팁/사이트
+                                        <li className="leaf">
+                                            <Link to="/main/employment">
+                                                취업/인턴
                                             </Link>
                                         </li>
-                                        <li className="third leaf">
-                                            <Link to="/main/famehall">
-                                                명예의 전당
+                                        <li className="leaf">
+                                            <Link to="/main/startup">
+                                                창업
                                             </Link>
                                         </li>
                                     </ul>
@@ -112,4 +114,4 @@ class Famehall extends Component{
         );
     }
 }
-export default Famehall;
+export default Bulletinboard;

@@ -10,11 +10,13 @@ import Login from './components/Login';
 import Join from './components/Join';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import App from './App.js'
-import First from './components/first_tab/first';
+import Projects from './components/first_tab/projects';
 import Archive from './components/second_tab/archive'
 import Famehall from './components/second_tab/famehall'
 import Helpful from './components/second_tab/helpful'
+import Community from './components/third_tab/community'
+import Bulletinboard from './components/third_tab/bulletinboard'
+import NewWrite from './components/third_tab/newWrite';
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -37,17 +39,19 @@ class LoginOrJoin extends React.Component {
     //     }
     //     }, [ this.state.cookies ]);
     
-    setHasToken(token){
+    setHasToken(token, user_id){
         if(token != null){
             this.setState(() => {
                 return {userToken: Cookies.get('user'),
-                    hasToken: true};
+                    hasToken: true,
+                    username: user_id};
             });
         }
         else{
             this.setState(() => {
                 return {userToken: null,
-                    hasToken: false};
+                    hasToken: false,
+                    username: null};
             })
         }
         console.log(this.state);
@@ -127,10 +131,39 @@ class LoginOrJoin extends React.Component {
                             }}
                         />
                         <Route exact path="/main" component={Home}/>
-                        <Route path="/main/first" component={First}/>
+                        <Route path="/main/projects" component={Projects}/>
                         <Route path="/main/archive" component={Archive}/>
                         <Route path="/main/helpful" component={Helpful}/>
                         <Route path="/main/famehall" component={Famehall}/>
+                        <Route path="/main/community" 
+                                render={routerProps => {
+                                    return(
+                                        <Community
+                                            {...routerProps}
+                                            userId ={this.state.username}
+                                        />
+                                    );
+                                }}  />
+                        <Route path="/main/bulletinboard" 
+                                render={routerProps => {
+                                    return(
+                                        <Bulletinboard
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
+                                    );
+                                }}
+                        />
+                        <Route path="/main/newwrite" 
+                                render={routerProps => {
+                                    return(
+                                        <NewWrite
+                                         {...routerProps}
+                                         userId={this.state.username}
+                                         />
+                                    );
+                                }}
+                        />
                 {/* </Switch> */}
                 {/* </Router> */}
                 </Router>

@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import {BrowserRouter as Router} from "react-router-dom";
 import { Route, Switch, Redirect } from "react-router-dom";
-import App from '../App';
 import LoginOrJoin from '../LoginOrJoin';
 const Login = ({ setHasToken, getHasToken }) => {
-// const Login = (loj) => {
 
     const [ userId, setUserId ] = useState('');
     const [ userPw, setUserPw ] = useState('');
     const loginApi = (user) => {
         return fetch('/users/login', {
+            credentials: 'same-origin',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +30,7 @@ const Login = ({ setHasToken, getHasToken }) => {
             if (response.result === 'ok') {
                 alert('로그인 성공');
                 console.log(getHasToken());
-                setHasToken(response.token);
+                setHasToken(response.token, userId);
             } else {
                 throw new Error(response.error);
             }

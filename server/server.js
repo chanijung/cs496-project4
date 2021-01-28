@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 // const api = require('./routes/index');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3002;
+const port =  process.env.PORT || 3002;
 const cors = require('cors');
 const mongoose = require('mongoose');
 
@@ -31,6 +31,14 @@ app.use('/users', userRouter);
 const famehallRouter = require('./routes/famehalls');
 app.use('/famehalls', famehallRouter);
 
+const projectRouter = require('./routes/projects');
+app.use('/projects', projectRouter);
+
+const communityRouter = require('./routes/community');
+app.use('/communities', communityRouter);
+
+const commentRouter = require('./routes/comments');
+app.use('/comments', commentRouter);
 
 app.listen(port, ()=>{
     console.log(`express is running on ${port}`);

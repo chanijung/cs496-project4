@@ -23,7 +23,7 @@ class GalleryContent extends Component{
         // var submitVote = this.props.submitVote;
 
         console.log("pageContent in gallery_content.js: ", pageContent);
-        const uploadButton = this.props.uploadButton ? <button onClick={uploadImages}>업로드</button> : <div></div>
+        const uploadButton = this.props.uploadButton ? <button onClick={uploadImages} className="upload">업로드</button> : <div></div>
         
         return(
             <div className="site-content">

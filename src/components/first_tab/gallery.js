@@ -217,7 +217,7 @@ class Gallery extends Component{
             return (
                 <div key={index} className="uploadPictureContainer">
                 <div className="deleteImage" onClick={() => this.removeImage(picture)}>X</div>
-                <img src={picture} className="uploadPicture" alt="preview"/>
+                <img src={picture} className="uploadPicture" alt="preview"  width="50" />
                 </div>
             );
         });
@@ -250,6 +250,7 @@ class Gallery extends Component{
                 }).then(response => response.json());
                 if (response.result === 'ok'){
                     console.log("post upload success");
+                    this.removeImage(this.state.pictures[i])
                     // this.displayProjects();
                 }
                 else{console.log("post upload fail")}
@@ -297,7 +298,7 @@ class Gallery extends Component{
        console.log("renderGallery")
         return (
             <div className="uploadPicturesWrapper">
-                <FlipMove enterAnimation="fade" leaveAnimation="fade" style={styles}>
+                <FlipMove className="gallery-view" enterAnimation="fade" leaveAnimation="fade" style={styles}>
                 {this.renderGalleryPictures()}
                 </FlipMove>
             </div>
@@ -322,7 +323,7 @@ class Gallery extends Component{
 
     render(){
         const imageUploader = 
-            <div className={"fileUploader " + this.props.className} style={this.props.style}>
+            <div className="fileUploader" style={this.props.style}>
                 <div className="fileContainer" style={this.props.fileContainerStyle}>
                     {this.renderIcon()}
                     {this.renderLabel()}
@@ -390,33 +391,24 @@ class Gallery extends Component{
                 </div>
             <aside className="sidebar">
                 <h2 className="sidebar_name">
-                    분반 커뮤니티
-                </h2>
-                <div className="sidebar_region">
-                    <div className="block-menu-block">
-                        <div className="content">
-                            <div className="menu-block-wrapper">
-                                <ul className="menu">
-                                    <li className="firstleaf">
-                                        <Link to="/main/projects">
-                                            프로젝트 제출
-                                        </Link>
-                                    </li>
-                                    <li className="second leaf">
-                                        {/* <Link to="/main/helpful"> */}
-                                            자리 정하기
-                                        {/* </Link> */}
-                                    </li>
-                                    <li className="third leaf">
-                                        <Link to="/main/gallery">
-                                            갤러리
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div className="sidebarname">
+                        분반 커뮤니티
                     </div>
-                </div>
+                </h2>
+                
+                    <ul className="menu">
+                        <li >
+                            <Link className="leaf" to="/main/projects">
+                                프로젝트
+                            </Link>
+                        </li>
+                        <li>
+                            <Link className="leaf" to="/main/gallery">
+                                갤러리
+                            </Link>
+                        </li>
+                    </ul>
+                      
             </aside>
             </div>
         );
@@ -428,7 +420,7 @@ Gallery.defaultProps = {
     fileContainerStyle: {},
     buttonClassName: "",
     buttonStyles: {},
-    withPreview: true,
+    withPreview: false,
     accept: "image/*",
     name: "",
     withIcon: true,

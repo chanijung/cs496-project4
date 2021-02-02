@@ -4,6 +4,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import { Route, Switch, Redirect } from "react-router-dom";
 import LoginOrJoin from '../LoginOrJoin';
 import '../LoginOrJoin.css';
+import Navigation from './nav'
 
 const Login = ({ setHasToken, getHasToken }) => {
 
@@ -44,40 +45,44 @@ const Login = ({ setHasToken, getHasToken }) => {
         }
     };
     return (
+        <div>
+        <Navigation></Navigation>
         <div className="loj2">
             <h2 className="login">로그인</h2>
-                <form className="login_form"
-                    onSubmit={handleSubmit}
-                >
-                    <div className="id">
-                        아이디
-                        <input className="idpwd_input"
-                            type="text"
-                            name="uid"
-                            value={userId}
-                            onChange={e => setUserId(e.target.value)}
-                        />
-                    </div>
-                    <br/>
-                    <div className="pwd">
-                        비밀번호
-                        <input className="idpwd_input"
-                            type="password"
-                            name="pwd"
-                            value={userPw}
-                            onChange={e => setUserPw(e.target.value)}
-                        />
-                    </div>
-                    <br/>
-                    <button type="submit">
-                        Login
-                    </button>
-                </form>
-            <Link
-                to="/join"
+
+            <form className="login-form"
+                onSubmit={handleSubmit}
             >
-                회원가입
-            </Link>
+                <div className="idpwd">
+                    <input className="idpwd_input"
+                        type="text"
+                        name="uid"
+                        value={userId}
+                        onChange={e => setUserId(e.target.value)}
+                        placeholder="아이디"
+                    />
+                </div>
+                <br/>
+                <div className="idpwd">
+                    <input className="idpwd_input"
+                        type="password"
+                        name="pwd"
+                        value={userPw}
+                        onChange={e => setUserPw(e.target.value)}
+                        placeholder="비밀번호"
+                    />
+                </div>
+                <br/>
+                <button className="login_button" type="submit">
+                    확인
+                </button>
+            </form>
+            <div className="join-button">
+                <Link to="/join">
+                    회원가입
+                </Link>
+            </div>
+        </div>
         </div>
     );
 };

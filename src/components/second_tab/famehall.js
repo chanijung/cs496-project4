@@ -73,7 +73,8 @@ class Famehall extends Component{
             var url = ((this.state.famehalls[order]).gitUrl);
             content = <FamehallContent pagetitle={(this.state.famehalls[order]).projectName} 
                             pagecontent={<Link href="" onClick={()=>window.open(url, '_blank')}>{this.state.famehalls[order].gitUrl}</Link>}
-                            teamname={(this.state.famehalls[order]).team}></FamehallContent>
+                            teamname={(this.state.famehalls[order]).team}
+                            content={this.state.famehalls[order].data}></FamehallContent>
         }
         return(
             <div className="Archive">

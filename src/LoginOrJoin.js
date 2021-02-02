@@ -135,6 +135,7 @@ class LoginOrJoin extends React.Component {
                         <Route exact path="/main" component={Home}/>
                         <Route path="/main/projects" component={Projects}/>
                         <Route path="/main/famehall" component={Famehall}/>
+                        <Route path="/main/gallery" component={Gallery}/>
                         <Route path="/main/community" 
                                 render={routerProps => {
                                     return(

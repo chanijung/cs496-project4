@@ -5,7 +5,8 @@ var famehallSchema = new Schema({
     team: [String],
     projectName: String,
     gitUrl: String,
-    year: String
+    year: String,
+    data: String
 })
 
 module.exports = mongoose.model('famehall', famehallSchema);

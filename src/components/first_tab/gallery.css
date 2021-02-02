@@ -1,27 +1,55 @@
 .Gallery{
     padding-top: 60px;
+    font-family:'nanumsquareround_r';
+    margin:0px;
+    height:fit-content;
+    padding-bottom: 0px;
 }
 
 .sidebar{
     display: block;
-    color:black
 }
 
 .sidebar_name{
     color:black;
     margin: 0;
+    padding-left: 10px;
     padding: 32px 60px 0 26px;
-    height: 120px;
+    height: 100px;
     font-weight: 400;
 }
 
+.sidebarname{
+    margin-left: 2%;
+    margin-top: 1%;
+    font-family: "nanumsquareround_b";
+    text-decoration: none;
+    color:inherit;
+}
+
+.gallery-view{
+    position: absolute;
+    right: 10%;
+    top:20%;
+}
+
+.upload{
+    float:right;
+    margin-right:20%;
+    margin-top:-5%;
+}
+
 .sidebar_region{
-    color:black;
     margin-top: 15px;
     margin-bottom: 100px;
     padding-right: 60px;
     padding-left: 10px;
 }
+
+/* .preview{
+    width:300px;
+    height:auto;
+} */
 
 .menu > li{
     text-decoration: none;
@@ -43,9 +71,20 @@
     z-index: 1;
 }
 
-.project-summary{
-    
+
+
+.fileUploader{
+    width:40%;
+    margin-top:5vw
 }
 
-
+.fileContainer{
+    /* margin-top:10vw; */
+    width:90%;
+    position: absolute;
+    left: 30%;
+    top:20%;
+    transform: translate(-50%, -50%);
+    align-content:center;
+}
 

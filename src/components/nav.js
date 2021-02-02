@@ -9,10 +9,17 @@ import LoginOrJoin from '../LoginOrJoin';
 
 const Navigation = ({removeCookie}) => {
 
+<<<<<<< HEAD
   var recent = window.location.href;
   var indexLogin = recent.indexOf('/login');
   var indexJoin = recent.indexOf('/join');
 
+=======
+  //현재 url 받아서 login이면 버튼없이 return
+  var recent = window.location.href;
+  var indexLogin = recent.indexOf('/login');
+  var indexJoin = recent.indexOf('/join');
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
   if(indexLogin != -1 || indexJoin!=-1){
     return(
     <div className="Navigation">

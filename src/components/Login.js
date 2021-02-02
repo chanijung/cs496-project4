@@ -74,7 +74,11 @@ const Login = ({ setHasToken, getHasToken }) => {
                 </div>
                 <br/>
                 <button className="login_button" type="submit">
+<<<<<<< HEAD
                     확인
+=======
+                    로그인
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
                 </button>
             </form>
             <div className="join-button">
@@ -82,7 +86,10 @@ const Login = ({ setHasToken, getHasToken }) => {
                     회원가입
                 </Link>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
         </div>
     );
 };

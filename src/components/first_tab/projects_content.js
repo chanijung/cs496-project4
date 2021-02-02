@@ -34,10 +34,14 @@ class ProjectsContent extends Component{
                         <div className="main-block">
                             <div className="pageContent">
                                 {projectSubmission}
+<<<<<<< HEAD
                                 {/* {vote_submit? <button className="vote_submit" onClick={submitVote}>투표</button> : <div></div>} */}
                                 <div className="page-content1">
                                     {pageContent}
                                 </div>
+=======
+                                <br/><br/>
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
                                 {vote_submit? <button className="vote_submit" onClick={submitVote}>투표</button> : <div></div>}
                             </div>
                             <div className="member1">

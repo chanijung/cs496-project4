@@ -18,8 +18,12 @@
     border: black 1px solid;
     border-radius: 5%;
     width:fit-content;
+<<<<<<< HEAD
     background-color:black;
     color:white;
+=======
+    background-color:lightgray;
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
     float:right;
     margin-right:45%;
 }

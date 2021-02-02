@@ -89,9 +89,14 @@ class Project extends Component{
                         <div className="project-info">
                         <Link className="project_name" key={this.state.projectCount} to={"/main/projects/" + this.state.projectCount}>{this.state.projectName}</Link>
                         <div className="member">{this.state.member1}, {this.state.member2}</div>
+<<<<<<< HEAD
                         </div>
                         {/* <div className="member">{this.state.member2}</div> */}
                         <input className="vote-box"
+=======
+                        {/* <div className="member">{this.state.member2}</div> */}
+                        <input
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
                             name={this.state.gitUrl}
                             type="checkbox"
                             onChange={this.handleVoteChange} />
@@ -201,6 +206,7 @@ class Project extends Component{
                         // {projectsData[i].projectName}    {projectsData[i].team[0]} {projectsData[i].team[1]}</Link></li>);
                         // a.summaries.push(<ProjectListItem projectCount={i} projectName={projectsData[i].projectName} member1={projectsData[i].team[0]} member2={projectsData[i].team[1]}></ProjectListItem>)
                         this.state.summaries.push(
+<<<<<<< HEAD
                             <li className="project_summary">
                                 <div className="project-info">
                                     <Link className="project_name" key={i} to={"/main/projects/" + i}>{projectsData[i].projectName}</Link>
@@ -208,6 +214,13 @@ class Project extends Component{
                                 </div>
                                 {/* <div className="member">{projectsData[i].team[1]}</div> */}
                                 <input className="vote-box"
+=======
+                            <li project_summary>
+                                <Link className="project_name" key={i} to={"/main/projects/" + i}>{projectsData[i].projectName}</Link>
+                                <div className="member">{projectsData[i].team[0]}, {projectsData[i].team[1]}</div>
+                                {/* <div className="member">{projectsData[i].team[1]}</div> */}
+                                <input
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
                                     name={projectsData[i].gitUrl}
                                     type="checkbox"
                                     onChange={this.handleVoteChange} />
@@ -362,8 +375,13 @@ class Project extends Component{
                             </div>
                         </h2>
                             <ul className="menu">
+<<<<<<< HEAD
                                 <li >
                                     <Link className="leaf" to="/main/projects">
+=======
+                                <li className="leaf">
+                                    <Link to="/main/projects">
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
                                         프로젝트
                                     </Link>
                                 </li>

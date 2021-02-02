@@ -19,6 +19,8 @@ import Employment from './components/third_tab/employment'
 import Startup from './components/third_tab/startup'
 import Gallery from './components/first_tab/gallery';
 import './LoginOrJoin.css';
+import madcamp from './components/madcamp.png'
+// import {BrowserRouter as Router,Link} from "react-router-dom";
 
 class LoginOrJoin extends React.Component {
     constructor(props) {
@@ -90,7 +92,9 @@ class LoginOrJoin extends React.Component {
     
     render(){
         return (
+            <div>
             
+<<<<<<< HEAD
             <div className="loj">
                 {/* <Observer value={this.state.userToken} didUpdate={this.setHasToken} /> */}
                 {/* <h1>Login or Join</h1> */}
@@ -137,6 +141,32 @@ class LoginOrJoin extends React.Component {
                         <Route path="/main/famehall" component={Famehall}/>
                         <Route path="/main/gallery" component={Gallery}/>
                         <Route path="/main/community" 
+=======
+              {/* <div className="Navi">
+                <li className="navilist"><Link className="Navs" to="/main/projects">분반 커뮤니티</Link></li>
+                <li className="navilist"><Link className="Navs" to="/main/archive">아카이브</Link>
+                  <ul className="hidden">
+                    <Link to="/main/archive">강의자료</Link>
+                    <br/>
+                    <Link to="/main/helpful">팁/사이트</Link>
+                    <br/>
+                    <Link to="/main/famehall">명예의 전당</Link>
+                  </ul>
+                </li>
+                <li className="navilist"><Link className="Navs" to="/main/third">세번째</Link></li>
+                <li className="navilist"><Link className="Navs" color="yellow" to="" onClick={()=> window.open('https://madcamp.io/apply', '_blank')}>지원하기</Link></li>
+                <li className="navilist"><Link className="Navs" href="" onClick={removeCookie}>로그아웃</Link></li>
+    
+              </div> */}
+            
+        
+        
+                <div className="loj">
+                    <Router>
+                    {!this.state.hasToken ? <Redirect to="/login" /> : <Redirect to="/main" />}
+                            <Route
+                                exact path="/login"
+>>>>>>> 68bbf4abec4beeadf35089c21e90d1c0e2ac61da
                                 render={routerProps => {
                                     return(
                                         <Community
@@ -154,8 +184,13 @@ class LoginOrJoin extends React.Component {
                                          />
                                     );
                                 }}
-                        />
-                        <Route path="/main/employment" 
+                            />
+                            <Route
+                                exact path="/join"
+                                component={Join}
+                            />
+                            <Route
+                                path="/"
                                 render={routerProps => {
                                     return(
                                         <Employment
@@ -184,11 +219,16 @@ class LoginOrJoin extends React.Component {
                                          />
                                     );
                                 }}
-                        />
-                {/* </Switch> */}
-                {/* </Router> */}
-                </Router>
-            </div>
+                            />
+                            <Route exact path="/main" component={Home}/>
+                            <Route path="/main/projects" component={Projects}/>
+                            <Route path="/main/archive" component={Archive}/>
+                            <Route path="/main/helpful" component={Helpful}/>
+                            <Route path="/main/famehall" component={Famehall}/>
+                            <Route path='/main/gallery' component={Gallery}/>
+                    </Router>
+                </div>
+                </div>
         );
         ;
     }
